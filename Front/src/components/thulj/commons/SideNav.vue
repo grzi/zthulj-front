@@ -25,12 +25,10 @@
         <font-awesome-icon icon="code" size="2x" color="#df0075"/>
       </router-link></li>
 
-
       <li :class='{active:activeSection=="utensils"}'>
         <router-link to="/recipes" title="Recettes">
           <font-awesome-icon icon="utensils" size="2x" color="#e23d27"/>
         </router-link></li>
-
 
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
