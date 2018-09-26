@@ -1,5 +1,5 @@
 <template>
-    <footer class="page-footer teal  brown lighten-1">
+    <footer class="page-footer teal blue-grey">
         <div class="container ">
             <div class="row">
                 <div class="col l6 s12">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright brown darken-3">
+        <div class="footer-copyright blue-grey darken-3">
             <div class="container">
                 Made by Jeremy Thulliez, using <a target="blank"
                                                   class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>

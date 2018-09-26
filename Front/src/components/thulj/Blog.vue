@@ -5,9 +5,12 @@
         <div class="content">
             <div class="container center">
                 <h1 v-if="$route.params.id != null ">Oui</h1>
-                <h1 v-else><br/><h6><i>Sélectionnez un article pour l'ouvrir</i></h6></h1>
+                <div v-else class="row">
+                    <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title"></Card>
+                </div>
             </div>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
@@ -15,10 +18,12 @@
   import SideNav from '@/components/thulj/commons/SideNav.vue'
   import TitleBar from '@/components/thulj/commons/TitleBar.vue'
   import Footer from '@/components/thulj/commons/Footer.vue'
+  import Card from '@/components/thulj/commons/Card.vue'
 
   export default {
     name: 'Blog',
     components: {
+      Card,
       SideNav,
       Footer,
       TitleBar
@@ -34,28 +39,32 @@
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            section: 'newspaper',
+            icon: 'newspaper',
+            section: 'blog',
             link: 'boyouboyuyou'
           },
           {
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            section: 'newspaper',
+            icon: 'newspaper',
+            section: 'blog',
             link: 'areuhareuh'
           },
           {
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            section: 'code',
+            icon: 'code',
+            section: 'projects',
             link: 'dklzdjzlekdjzekljd'
           },
           {
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            section: 'code',
+            icon: 'code',
+            section: 'projects',
             link: 'straaaaaate'
           }
         ]
