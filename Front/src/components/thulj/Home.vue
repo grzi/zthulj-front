@@ -6,8 +6,14 @@
             <div class="container">
 
                 <div class="row">
-
-                    <div class="row"><h4><b>Derniers billets</b></h4></div>
+                    <div>
+                        <h5> <b>Hey ! Bienvenue :) </b></h5>
+                    </div>
+                    <div>
+                        Ce blog regroupe les différents billets que j'écris au fur et à mesure de mes expériences.
+                        Attention /!\ mes écrits n'engagent que moi. :)
+                    </div>
+                    <div class="row"><h6><b>Derniers billets</b></h6></div>
                     Liste des derniers billets publiés sur le site, toutes catégories confondues :
 
                     <div class="row margin-top-20">

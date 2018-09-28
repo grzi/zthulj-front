@@ -4,12 +4,14 @@
         <TitleBar :sectionTitle='sectionTitle'></TitleBar>
         <div class="content">
             <div class="container center">
-                <h1 v-if="$route.params.id != null ">Oui</h1>
+                <Article v-if="$route.params.id != null "></Article>
                 <div v-else class="row">
                     <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title"></Card>
                 </div>
+
             </div>
         </div>
+
         <Footer></Footer>
     </div>
 </template>
@@ -19,6 +21,7 @@
   import TitleBar from '@/components/thulj/commons/TitleBar.vue'
   import Footer from '@/components/thulj/commons/Footer.vue'
   import Card from '@/components/thulj/commons/Card.vue'
+  import Article from '@/components/thulj/commons/Article.vue'
 
   export default {
     name: 'Blog',
@@ -26,7 +29,8 @@
       Card,
       SideNav,
       Footer,
-      TitleBar
+      TitleBar,
+      Article
     },
     created () {
       document.title = 'Blog - Thulj.fr'

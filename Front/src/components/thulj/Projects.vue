@@ -20,7 +20,6 @@
   import Footer from '@/components/thulj/commons/Footer.vue'
   import Card from '@/components/thulj/commons/Card.vue'
 
-
   export default {
     name: 'Projects',
     components: {

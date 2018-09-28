@@ -22,8 +22,10 @@
 
 <style scoped>
     .card {
-        z-index: 1
+        z-index: 1;
+
     }
+    .card .card-content{padding-top:12px !important;}
 
     .card-action {
         text-align: right

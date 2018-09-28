@@ -16,11 +16,14 @@ import {
   faBolt,
   faLightbulb,
   faQuestion,
-  faSearch
+  faSearch,
+  faClock,
+  faUser,
+  faComment
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee, faIdCard, faUtensils, faNewspaper, faCode, faHome, faGamepad, faHeart, faLightbulb, faBolt, faQuestion, faSearch)
+library.add(faCoffee, faIdCard, faUtensils, faNewspaper, faCode, faHome, faGamepad, faHeart, faLightbulb, faBolt, faQuestion, faSearch, faClock, faUser, faComment)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
