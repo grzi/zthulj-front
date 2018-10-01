@@ -9,7 +9,7 @@ public class MongoConfig extends AbstractMongoConfiguration { // TODO : Move int
 
     @Override
     protected String getDatabaseName() {
-        return "test";
+        return "zthulj";
     }
 
     @Override

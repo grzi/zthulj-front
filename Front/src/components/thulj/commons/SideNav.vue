@@ -30,6 +30,11 @@
           <font-awesome-icon icon="utensils" size="2x" color="#e23d27"/>
         </router-link></li>
 
+        <li :class='{active:activeSection=="editPost"}'>
+            <router-link to="/edit" title="Nouvel article">
+                <font-awesome-icon icon="plus-square" size="2x" color="#EEEEEE"/>
+            </router-link></li>
+
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>

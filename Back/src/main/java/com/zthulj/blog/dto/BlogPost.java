@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Blog implements Serializable {
+public class BlogPost implements Serializable {
     private String title;
     private String subtitle;
     private Date publishDate;
     private String author;
     private String content;
+    private String category;
 
     public String getTitle() {
         return title;
@@ -51,20 +52,29 @@ public class Blog implements Serializable {
         this.content = content;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Blog)) return false;
-        Blog blog = (Blog) o;
-        return Objects.equals(getTitle(), blog.getTitle()) &&
-                Objects.equals(getSubtitle(), blog.getSubtitle()) &&
-                Objects.equals(getPublishDate(), blog.getPublishDate()) &&
-                Objects.equals(getAuthor(), blog.getAuthor()) &&
-                Objects.equals(getContent(), blog.getContent());
+        if (!(o instanceof BlogPost)) return false;
+        BlogPost blogPost = (BlogPost) o;
+        return Objects.equals(getTitle(), blogPost.getTitle()) &&
+                Objects.equals(getSubtitle(), blogPost.getSubtitle()) &&
+                Objects.equals(getPublishDate(), blogPost.getPublishDate()) &&
+                Objects.equals(getAuthor(), blogPost.getAuthor()) &&
+                Objects.equals(getContent(), blogPost.getContent()) &&
+                Objects.equals(getCategory(), blogPost.getCategory());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getSubtitle(), getPublishDate(), getAuthor(), getContent());
+        return Objects.hash(getTitle(), getSubtitle(), getPublishDate(), getAuthor(), getContent(), getCategory());
     }
 }

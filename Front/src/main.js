@@ -19,11 +19,13 @@ import {
   faSearch,
   faClock,
   faUser,
-  faComment
+  faComment,
+  faPlusSquare
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faCoffee, faIdCard, faUtensils, faNewspaper, faCode, faHome, faGamepad, faHeart, faLightbulb, faBolt, faQuestion, faSearch, faClock, faUser, faComment)
+library.add(faPlusSquare)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
