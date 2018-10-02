@@ -20,11 +20,20 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
+                                <input placeholder="Lien de l'article" id="link" type="text">
+                                <label for="title">Link</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
                                 <textarea id="content"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="btn" v-on:click='convertAndPreview()'>Mettre à jour le preview</div>
+                        </div>
+                        <div class="row">
+                            <div class="btn" v-on:click='saveArticle()'>Sauvegarder l'article</div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 presee blogpost" id="presee">
@@ -60,11 +69,29 @@
       M.textareaAutoResize(document.getElementById('content'))
     },
     methods: {
-      convertAndPreview: function(){
+      convertAndPreview: function () {
         axios.post('http://localhost:8080/api/md/convertToHtml', {'text': document.getElementById('content').value}).then(response => {
           // JSON responses are automatically parsed.
           document.getElementById('presee').innerHTML = response.data
           console.log(response.data)
+        })
+          .catch(e => { })
+      },
+      saveArticle: function () {
+        var objId = document.getElementById('objectId').value
+        var article = {
+          id: (objId === null || objId === '') ? null : objId,
+          link: document.getElementById('link').value,
+          value: {
+            title: document.getElementById('title').value,
+            subtitle: '',
+            author: 'zThulj',
+            content: document.getElementById('content').value,
+            category: 'BlogPost'
+          }
+        }
+        axios.post('http://localhost:8080/api/blog/push', article).then(response => {
+
         })
           .catch(e => { })
       }

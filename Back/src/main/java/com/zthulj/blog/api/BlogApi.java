@@ -1,8 +1,8 @@
 package com.zthulj.blog.api;
 
 import com.zthulj.blog.dto.Article;
+import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.service.BlogService;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,14 @@ public class BlogApi {
         return blogService.getArticleByLink(link);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/push", method = RequestMethod.POST)
-    public Pair<String, String> pushArticle(@RequestBody Article article) {
-        return blogService.saveArticle(article);
+    public @ResponseBody Article pushArticle(@RequestBody Article article) {
+        try {
+            return blogService.saveArticle(article);
+        } catch (BlogException e) {
+            return null;
+        }
     }
 
     @RequestMapping(value = "/search/{keywords}", method = RequestMethod.GET)
