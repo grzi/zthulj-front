@@ -6,6 +6,8 @@ import com.zthulj.blog.service.BlogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -26,11 +28,11 @@ public class BlogApi {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/push", method = RequestMethod.POST)
-    public @ResponseBody Article pushArticle(@RequestBody Article article) {
+    public ResponseEntity<?> pushArticle(@RequestBody Article article) {
         try {
-            return blogService.saveArticle(article);
+            return new ResponseEntity<>(blogService.saveArticle(article),HttpStatus.OK);
         } catch (BlogException e) {
-            return null;
+            return new ResponseEntity<>("Error while saving the article : " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

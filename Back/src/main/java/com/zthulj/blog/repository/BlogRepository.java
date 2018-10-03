@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface BlogRepository extends MongoRepository<Article,String> {
-    Article findByLink(String link);
+    Article findByLinkIgnoreCase(String link);
 
     List<Article> findByValue_ContentContainingIgnoreCase(String content);
 

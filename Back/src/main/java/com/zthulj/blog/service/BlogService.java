@@ -3,11 +3,9 @@ package com.zthulj.blog.service;
 import com.zthulj.blog.dto.Article;
 import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.repository.BlogRepository;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 
@@ -18,22 +16,28 @@ public class BlogService {
     BlogRepository blogRepository;
 
     @Autowired
-    MongoTemplate mongoTemplate;
+    ArticleValidator validator;
 
-    public Article getArticleByLink(String link){
-        return blogRepository.findByLink(link);
+    public Article getArticleByLink(String link) {
+        return blogRepository.findByLinkIgnoreCase(link);
     }
 
     public Article saveArticle(Article article) throws BlogException {
-        if((null == article.getId() || StringUtils.isEmpty(article.getId()))
-                && getArticleByLink(article.getLink()) != null){
-           throw new BlogException("Article with this link already exist");
+
+        validator.Validate(article);
+
+        // Permet la génération d'un nouvel id (ne marche pas si on reçoit un id 'vide'
+        article.setId(article.getId() != null && article.getId().isEmpty() ? null : article.getId());
+        if (null == article.getId()
+                && getArticleByLink(article.getLink()) != null) {
+            throw new BlogException("Article with this link already exist");
         }
+
         return blogRepository.save(article);
     }
 
-    public Collection<Article> search(String keywords){
-       return blogRepository.findByValue_ContentContainingIgnoreCase(keywords);
+    public Collection<Article> search(String keywords) {
+        return blogRepository.findByValue_ContentContainingIgnoreCase(keywords);
     }
 
     public Collection<Article> listAll() {

@@ -1,7 +1,7 @@
 package com.zthulj.blog.dto;
 
 
-import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -10,7 +10,8 @@ import java.util.Objects;
 @Document(collection = "blog")
 public class Article implements Serializable {
 
-    private ObjectId id;
+    @Id
+    private String id;
     private String link;
     private BlogPost value;
 
@@ -38,11 +39,11 @@ public class Article implements Serializable {
         this.value = val;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

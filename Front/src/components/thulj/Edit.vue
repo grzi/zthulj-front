@@ -4,29 +4,30 @@
         <TitleBar :sectionTitle='sectionTitle'></TitleBar>
         <div class="content">
             <div class="container center">
+                <h4>Modification d'un article</h4>
                 <div class="row">
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="objectId" type="text" disabled>
-                                <label for="objectId">ObjectId</label>
+                                <input id="objectId" type="text" disabled v-model="article.id">
+                                <label for="objectId" class="forceActive active">Id de l'article</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input placeholder="Titre de l'article" id="title" type="text">
+                                <input placeholder="Titre de l'article" id="title" type="text" v-model="article.value.title">
                                 <label for="title">Titre</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input placeholder="Lien de l'article" id="link" type="text">
+                                <input placeholder="Lien de l'article" id="link" type="text" v-model="article.link">
                                 <label for="title">Link</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="content"></textarea>
+                                <textarea id="content" v-model="article.value.content"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -73,32 +74,22 @@
         axios.post('http://localhost:8080/api/md/convertToHtml', {'text': document.getElementById('content').value}).then(response => {
           // JSON responses are automatically parsed.
           document.getElementById('presee').innerHTML = response.data
-          console.log(response.data)
         })
           .catch(e => { })
       },
       saveArticle: function () {
-        var objId = document.getElementById('objectId').value
-        var article = {
-          id: (objId === null || objId === '') ? null : objId,
-          link: document.getElementById('link').value,
-          value: {
-            title: document.getElementById('title').value,
-            subtitle: '',
-            author: 'zThulj',
-            content: document.getElementById('content').value,
-            category: 'BlogPost'
-          }
-        }
-        axios.post('http://localhost:8080/api/blog/push', article).then(response => {
-
+        this.article.id = (this.article.id === null || this.article.id === '') ? '' : this.article.id
+        axios.post('http://localhost:8080/api/blog/push', this.article).then(response => {
+          this.article = response.data
+          M.updateTextFields()
         })
           .catch(e => { })
       }
     },
     data: function () {
       return {
-        sectionTitle: 'zThulj > Editer Article'
+        sectionTitle: 'zThulj > Editer Article',
+        article: {id: null, link: '', value: {title: '', content: ''}}
       }
     }
   }
@@ -107,4 +98,10 @@
 <style scoped>
 .presee{text-align:left;}
     #content{background:white;min-height:300px;padding:15px;border:1px solid gray;text-align:left;}
+.forceActive {
+    -webkit-transform: translateY(-14px) scale(0.8);
+    transform: translateY(-14px) scale(0.8);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
 </style>
