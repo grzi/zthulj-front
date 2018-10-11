@@ -6,10 +6,18 @@
                     <span class="brand-logo black-text">{{sectionTitle}}</span>
                 </div>
                 <div class="col s9">
-                    <div class="header-search-wrapper hide-on-med-and-down sideNav-lock">
+                    <div class="header-search-wrapper hide-on-med-and-down sideNav-lock relative">
                         <font-awesome-icon icon="search" size="2x" class="iconInput" color="gray"/>
                         <input name="Search" class="header-search-input z-depth-2" placeholder="Chercher. . ."
-                               type="text">
+                               type="text" v-model='keywords' v-on:keyup="searchArticles">
+                        <div class="searchResult">
+                            <div v-for="result in results" v-bind:key="result.link">
+                                <a href="coucou" class="linkSearch">
+                                    <span>{{result.value.category}}</span> > <span>{{result.value.title}}</span>
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -18,9 +26,24 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'TitleBar',
-    props: ['sectionTitle', 'customClasses']
+    props: ['sectionTitle', 'customClasses'],
+    methods: {
+      searchArticles: function () {
+        axios.get('http://localhost:8080/api/blog/search/' + this.keywords).then(response => {
+          this.results = response.data
+        })
+          .catch(e => { })
+      }
+    },
+    data: function () {
+      return {
+        keywords: '',
+        results: []
+      }
+    }
   }
 </script>
 
@@ -54,6 +77,7 @@
         margin-left:65px !important;
         padding-left:8px !important;
         font-size:14px !important;
+        width:100%;
     }
 
     .iconInput{
@@ -66,4 +90,9 @@
         -webkit-transition: color 200ms ease;
         transition: color 200ms ease;
     }
+    .relative{position:relative;}
+    .searchResult{position:absolute;background:white;border:1px solid #EEE;margin-left: 65px;width:50%;color:#222;display:none;}
+
+    .linkSearch{color:#222;}
+    .linkSearch:hover{text-decoration: underline;}
 </style>

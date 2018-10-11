@@ -5,6 +5,22 @@
         <div class="content">
             <div class="container center">
                 <h4>Modification d'un article</h4>
+                <div class="row" id="alert_box" v-bind:class="messageboxclass">
+                    <div class="col s12 m12">
+                        <div class="card" v-bind:class="messageColor">
+                            <div class="row">
+                                <div class="col s12 m10">
+                                    <div class="card-content white-text left-align" id="message">
+                                        {{messageinfo}}
+                                    </div>
+                                </div>
+                                <div class="col s12 m2">
+                                    <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <form class="col s12">
                         <div class="row">
@@ -25,20 +41,25 @@
                                 <label for="title">Link</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row no-margin-bottom">
                             <div class="input-field col s12">
                                 <textarea id="content" v-model="article.value.content"></textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="btn" v-on:click='convertAndPreview()'>Mettre à jour le preview</div>
+                            <div class="input-field col s12">
+                                <MarkdownPalette v-on:paletteChange="paletteChange"></MarkdownPalette>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="btn" v-on:click='convertAndPreview()'>Preview</div>
                         </div>
                         <div class="row">
                             <div class="btn" v-on:click='saveArticle()'>Sauvegarder l'article</div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12 presee blogpost" id="presee">
-
+                        <div id="modal1" class="modal">
+                            <div class="modal-content presee blogpost" id="presee">
+                                <Article :article="article"></Article>
                             </div>
                         </div>
 
@@ -55,6 +76,8 @@
   import SideNav from '@/components/thulj/commons/SideNav.vue'
   import TitleBar from '@/components/thulj/commons/TitleBar.vue'
   import Footer from '@/components/thulj/commons/Footer.vue'
+  import MarkdownPalette from '@/components/thulj/utils/MarkdownPalette.vue'
+  import Article from '@/components/thulj/commons/Article.vue'
   import M from 'materialize-css'
   import axios from 'axios'
 
@@ -63,17 +86,22 @@
     components: {
       SideNav,
       Footer,
-      TitleBar
+      TitleBar,
+      MarkdownPalette,
+      Article
     },
     mounted () {
       M.updateTextFields()
       M.textareaAutoResize(document.getElementById('content'))
+      var elem = document.getElementById('modal1')
+      M.Modal.init(elem, null)
     },
     methods: {
       convertAndPreview: function () {
         axios.post('http://localhost:8080/api/md/convertToHtml', {'text': document.getElementById('content').value}).then(response => {
           // JSON responses are automatically parsed.
-          document.getElementById('presee').innerHTML = response.data
+          this.article.value.contentHtml = response.data
+          M.Modal.getInstance(document.getElementById('modal1')).open()
         })
           .catch(e => { })
       },
@@ -81,22 +109,39 @@
         this.article.id = (this.article.id === null || this.article.id === '') ? '' : this.article.id
         axios.post('http://localhost:8080/api/blog/push', this.article).then(response => {
           this.article = response.data
+          if (response.status === 400) {
+
+          }
+          this.messageboxclass = 'forceDisplay'
+          this.messageColor = 'green lighten-2'
+          this.messageinfo = 'Article enregistré'
+          window.scrollTo(0, 0)
           M.updateTextFields()
         })
-          .catch(e => { })
+          .catch(e => {
+            this.messageboxclass = 'forceDisplay'
+            this.messageColor = 'red lighten-2'
+            this.messageinfo = e.response.data
+            window.scrollTo(0, 0)
+          })
+      },
+      paletteChange: function (md) {
+        this.article.value.content += md
       }
     },
     data: function () {
       return {
+        messageboxclass: '',
+        messageinfo: '',
+        messageColor: '',
         sectionTitle: 'zThulj > Editer Article',
-        article: {id: null, link: '', value: {title: '', content: ''}}
+        article: {id: null, link: '', value: { title: '', content: '', contentHtml: '' }}
       }
     }
   }
 </script>
 
 <style scoped>
-.presee{text-align:left;}
     #content{background:white;min-height:300px;padding:15px;border:1px solid gray;text-align:left;}
 .forceActive {
     -webkit-transform: translateY(-14px) scale(0.8);
@@ -104,4 +149,14 @@
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
 }
+.forceDisplay{display:inline !important;}
+.icon_style{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor:pointer;
+}
+    #alert_box{display:none;}
 </style>

@@ -1,13 +1,13 @@
 <template>
     <div class="article">
-        <div class="title">Ceci sera le titre de l'article</div>
+        <div class="title">{{article.value.title}}</div>
         <div class="infosArticles container center">
-            <span class="minititle"> <font-awesome-icon icon="clock"/> <span class="val">27/06/1992</span></span>
-            <span class="minititle"> <font-awesome-icon icon="user"/><span class="val">zThulj</span></span>
+            <span class="minititle"> <font-awesome-icon icon="clock"/> <span class="val">{{article.value.title}}</span></span>
+            <span class="minititle"> <font-awesome-icon icon="user"/><span class="val">{{article.value.author}}</span></span>
             <span class="minititle"> <font-awesome-icon icon="comment"/><span class="val">(0) Commentaires</span></span>
         </div>
-        <div class="articlecontent container">
-            Ceci est le contenu de l'article
+        <div class="articlecontent container" v-html="article.value.contentHtml">
+
         </div>
         <!--Comments></Comments> -->
     </div>
@@ -20,6 +20,9 @@
     name: 'Article',
     components: {
       Comments
+    },
+    props: {
+      article: { id: null, link: '', value: {title: '', content: ''} }
     }
   }
 </script>
