@@ -8,15 +8,14 @@
                 <div class="col s9">
                     <div class="header-search-wrapper hide-on-med-and-down sideNav-lock relative">
                         <font-awesome-icon icon="search" size="2x" class="iconInput" color="gray"/>
-                        <input name="Search" class="header-search-input z-depth-2" placeholder="Chercher. . ."
-                               type="text" v-model='keywords' v-on:keyup="searchArticles">
-                        <div class="searchResult">
+                        <input name="Search" ref="keyword" class="header-search-input z-depth-2" placeholder="Chercher. . ."
+                               type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass">
+                        <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseleave">
                             <div v-for="result in results" v-bind:key="result.link">
-                                <a href="coucou" class="linkSearch">
+                                <router-link :to='"/" + result.value.section + "/" + result.link' class="linkSearch">
                                     <span>{{result.value.category}}</span> > <span>{{result.value.title}}</span>
-                                </a>
+                                </router-link>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -32,16 +31,38 @@
     props: ['sectionTitle', 'customClasses'],
     methods: {
       searchArticles: function () {
-        axios.get('http://localhost:8080/api/blog/search/' + this.keywords).then(response => {
-          this.results = response.data
-        })
-          .catch(e => { })
+        if (this.keywords.length > 0) {
+          axios.get('http://localhost:8080/api/blog/search/' + this.keywords).then(response => {
+            this.results = response.data
+            if (this.results.length > 0) {
+              this.resultsClass = 'forceDisplay'
+            } else {
+              this.resultsClass = ''
+            }
+          })
+            .catch(e => {
+              this.resultsClass = ''
+            })
+        } else {
+          this.resultsClass = ''
+        }
+      },
+      resetSearchClass: function () {
+        if (!this.mouseInResults) {
+          this.resultsClass = ''
+        }
+      },
+      mouseleave: function () {
+        this.mouseInResults = false
+        this.$refs.keyword.focus()
       }
     },
     data: function () {
       return {
         keywords: '',
-        results: []
+        results: [],
+        resultsClass: '',
+        mouseInResults: false
       }
     }
   }
@@ -92,7 +113,7 @@
     }
     .relative{position:relative;}
     .searchResult{position:absolute;background:white;border:1px solid #EEE;margin-left: 65px;width:50%;color:#222;display:none;}
-
+    .forceDisplay{display:block !important;}
     .linkSearch{color:#222;}
     .linkSearch:hover{text-decoration: underline;}
 </style>
