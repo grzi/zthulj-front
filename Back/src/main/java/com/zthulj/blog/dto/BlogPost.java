@@ -10,6 +10,7 @@ public class BlogPost implements Serializable {
     private Date publishDate;
     private String author;
     private String content;
+    private String contentHtml;
     private String category;
 
     public String getTitle() {
@@ -60,6 +61,14 @@ public class BlogPost implements Serializable {
         this.category = category;
     }
 
+    public String getContentHtml() {
+        return contentHtml;
+    }
+
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,11 +79,12 @@ public class BlogPost implements Serializable {
                 Objects.equals(getPublishDate(), blogPost.getPublishDate()) &&
                 Objects.equals(getAuthor(), blogPost.getAuthor()) &&
                 Objects.equals(getContent(), blogPost.getContent()) &&
+                Objects.equals(getContentHtml(), blogPost.getContentHtml()) &&
                 Objects.equals(getCategory(), blogPost.getCategory());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getSubtitle(), getPublishDate(), getAuthor(), getContent(), getCategory());
+        return Objects.hash(getTitle(), getSubtitle(), getPublishDate(), getAuthor(), getContent(), getContentHtml(), getCategory());
     }
 }

@@ -22,10 +22,18 @@ public class BlogApi {
     @Autowired
     BlogService blogService;
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/{link}", method = RequestMethod.GET)
     public Article getArticle(@PathVariable("link") String link) {
         return blogService.getArticleByLink(link);
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/{category}/{link}", method = RequestMethod.GET)
+    public Article getArticle(@PathVariable("category") String category, @PathVariable("link") String link) {
+        return blogService.getArticleByLink(link);
+    }
+
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/push", method = RequestMethod.POST)

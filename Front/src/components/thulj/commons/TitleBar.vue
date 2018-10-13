@@ -9,11 +9,11 @@
                     <div class="header-search-wrapper hide-on-med-and-down sideNav-lock relative">
                         <font-awesome-icon icon="search" size="2x" class="iconInput" color="gray"/>
                         <input name="Search" ref="keyword" class="header-search-input z-depth-2" placeholder="Chercher. . ."
-                               type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass">
+                               type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass" v-on:focus="searchArticles">
                         <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseleave">
                             <div v-for="result in results" v-bind:key="result.link">
-                                <router-link :to='"/" + result.value.section + "/" + result.link' class="linkSearch">
-                                    <span>{{result.value.category}}</span> > <span>{{result.value.title}}</span>
+                                <router-link :to='"/" + result.value.category + "/" + result.link' class="linkSearch">
+                                    <span><b>{{result.value.category}}</b></span> > <span>{{result.value.title}}</span>
                                 </router-link>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
         transition: color 200ms ease;
     }
     .relative{position:relative;}
-    .searchResult{position:absolute;background:white;border:1px solid #EEE;margin-left: 65px;width:50%;color:#222;display:none;}
+    .searchResult{position:absolute;background:white;border:1px solid #EEE;margin-left: 65px;width:50%;color:#222;display:none;padding-left:10px;}
     .forceDisplay{display:block !important;}
     .linkSearch{color:#222;}
     .linkSearch:hover{text-decoration: underline;}

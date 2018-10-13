@@ -31,6 +31,12 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
+                                <input id="objectSection" type="text" disabled v-model="article.value.category">
+                                <label for="objectId" class="forceActive active">Catégorie de l'article</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
                                 <input placeholder="Titre de l'article" id="title" type="text" v-model="article.value.title">
                                 <label for="title">Titre</label>
                             </div>
@@ -135,7 +141,7 @@
         messageinfo: '',
         messageColor: '',
         sectionTitle: 'zThulj > Editer Article',
-        article: {id: null, link: '', value: { title: '', content: '', contentHtml: '' }}
+        article: {id: null, link: '', value: { title: '', content: '', contentHtml: '', category: 'blog' }}
       }
     }
   }

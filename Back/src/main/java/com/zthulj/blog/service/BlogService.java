@@ -18,8 +18,16 @@ public class BlogService {
     @Autowired
     ArticleValidator validator;
 
+    @Autowired
+    MardownService mdService;
+
     public Article getArticleByLink(String link) {
-        return blogRepository.findByLinkIgnoreCase(link);
+       Article a = blogRepository.findByLinkIgnoreCase(link);
+       if(a != null){
+            a.getValue().setContentHtml(mdService.convertMardownToHtml(a.getValue().getContent()));
+            a.getValue().setContent(null); // Set to null to improve network data load
+       }
+       return a;
     }
 
     public Article saveArticle(Article article) throws BlogException {
