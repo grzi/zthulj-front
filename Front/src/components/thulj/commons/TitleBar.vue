@@ -12,8 +12,8 @@
                                type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass" v-on:focus="searchArticles">
                         <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseleave">
                             <div v-for="result in results" v-bind:key="result.link">
-                                <router-link @click.native="reset()" :to='"/" + result.value.category + "/" + result.link' class="linkSearch" >
-                                    <span><b>{{result.value.category}}</b></span> > <span>{{result.value.title}}</span>
+                                <router-link @click.native="reset()" :to='"/" + result.category + "/" + result.link' class="linkSearch" >
+                                    <span><b>{{result.category}}</b></span> > <span>{{result.title}}</span>
                                 </router-link>
                             </div>
                         </div>

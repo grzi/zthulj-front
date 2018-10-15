@@ -11,7 +11,7 @@
                             <div class="row">
                                 <div class="col s12 m10">
                                     <div class="card-content white-text left-align" id="message">
-                                        {{messageinfo}}
+                                        {{ messageinfo }}
                                     </div>
                                 </div>
                                 <div class="col s12 m2">
@@ -31,14 +31,20 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="objectSection" type="text" disabled v-model="article.value.category">
+                                <input id="objectSection" type="text" disabled v-model="article.category">
                                 <label for="objectId" class="forceActive active">Catégorie de l'article</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input placeholder="Titre de l'article" id="title" type="text" v-model="article.value.title">
+                                <input placeholder="Titre de l'article" id="title" type="text" v-model="article.title">
                                 <label for="title">Titre</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Description de l'article" id="description" type="text" v-model="article.description">
+                                <label for="title">Description</label>
                             </div>
                         </div>
                         <div class="row">
@@ -49,7 +55,7 @@
                         </div>
                         <div class="row no-margin-bottom">
                             <div class="input-field col s12">
-                                <textarea id="content" v-model="article.value.content"></textarea>
+                                <textarea id="content" v-model="article.value.contentMD"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -96,6 +102,13 @@
       MarkdownPalette,
       Article
     },
+    beforeMount () {
+      if (typeof this.$route.params.link !== 'undefined') {
+        axios.get('http://localhost:8080/api/blog/full/' + this.$route.params.link).then(response => {
+          this.article = response.data
+        })
+      }
+    },
     mounted () {
       M.updateTextFields()
       M.textareaAutoResize(document.getElementById('content'))
@@ -141,7 +154,7 @@
         messageinfo: '',
         messageColor: '',
         sectionTitle: 'zThulj > Editer Article',
-        article: {id: null, link: '', value: { title: '', content: '', contentHtml: '', category: 'blog' }}
+        article: {id: null, link: '', category: 'blog', title: '', value: {contentMD: '', contentHtml: ''}}
       }
     }
   }

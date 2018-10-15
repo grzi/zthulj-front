@@ -7,8 +7,8 @@ import java.util.List;
 public interface BlogRepository extends MongoRepository<Article,String> {
     Article findByLinkIgnoreCase(String link);
 
-    List<Article> findByValue_ContentContainingIgnoreCase(String content);
+    List<Article> findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCase(String content, String content2);
 
-    List<Article> findByValue_Category(String category);
+    List<Article> findByCategory(String category);
 
 }

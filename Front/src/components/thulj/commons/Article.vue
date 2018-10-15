@@ -1,10 +1,11 @@
 <template>
     <div class="article">
-        <div class="title">{{article.value.title}}</div>
+        <div class="title">{{article.title}}</div>
         <div class="infosArticles container center">
-            <span class="minititle"> <font-awesome-icon icon="clock"/> <span class="val">{{article.value.publishDate}}</span></span>
+            <span class="minititle"> <font-awesome-icon icon="clock"/> <span class="val">{{article.formattedDate}}</span></span>
             <span class="minititle"> <font-awesome-icon icon="user"/><span class="val">zThulj</span></span>
             <span class="minititle"> <font-awesome-icon icon="comment"/><span class="val">(0) Commentaires</span></span>
+            <router-link :to="'/edit/' + article.link" class="minititle"> <font-awesome-icon icon="edit"/></router-link>
         </div>
         <div class="articlecontent container" v-html="article.value.contentHtml">
 
@@ -31,7 +32,7 @@
     },
     data: function () {
       return {
-        article: {id: null, link: '', value: {title: '', content: ''}}
+        article: {id: null, link: '', value: {}}
       }
     }
   }

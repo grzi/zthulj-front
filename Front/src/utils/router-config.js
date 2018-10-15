@@ -12,7 +12,7 @@ export const router = new VueRouter({
     {path: '/blog/:id', name: 'articleBlog', component: require('../components/thulj/Blog.vue').default},
     {path: '/projects', name: 'projects', component: require('../components/thulj/Projects.vue').default},
     {path: '/recipes', name: 'recipes', component: require('../components/thulj/Recipes.vue').default},
-    {path: '/edit', name: 'edit', component: require('../components/thulj/Edit.vue').default}
-    // { path: '/article/:id', component: require('../components/article/Article.vue').default }
+    {path: '/edit', name: 'edit', component: require('../components/thulj/Edit.vue').default},
+    {path: '/edit/:link', component: require('../components/thulj/Edit.vue').default}
   ]
 })

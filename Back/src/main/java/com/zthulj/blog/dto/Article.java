@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Document(collection = "blog")
@@ -14,6 +15,13 @@ public class Article implements Serializable {
     private String id;
     private String link;
     private String description;
+    private String title;
+    private String category;
+    private String subtitle;
+    private Date publishDate;
+    private String formattedDate;
+    private String author;
+
     private BlogPost value;
 
     public Article() {
@@ -56,6 +64,54 @@ public class Article implements Serializable {
         this.description = description;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,11 +120,16 @@ public class Article implements Serializable {
         return Objects.equals(getId(), article.getId()) &&
                 Objects.equals(getLink(), article.getLink()) &&
                 Objects.equals(getDescription(), article.getDescription()) &&
+                Objects.equals(getTitle(), article.getTitle()) &&
+                Objects.equals(getCategory(), article.getCategory()) &&
+                Objects.equals(getSubtitle(), article.getSubtitle()) &&
+                Objects.equals(getPublishDate(), article.getPublishDate()) &&
+                Objects.equals(getAuthor(), article.getAuthor()) &&
                 Objects.equals(getValue(), article.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLink(), getDescription(), getValue());
+        return Objects.hash(getId(), getLink(), getDescription(), getTitle(), getCategory(), getSubtitle(), getPublishDate(), getAuthor(), getValue());
     }
 }

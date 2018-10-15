@@ -15,9 +15,7 @@ public class MarkDownApi {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/convertToHtml", method = RequestMethod.POST)
-    public String getArticle(@RequestBody Map<String,String> toConvert) {
-
-        String test =  markdownService.convertMardownToHtml(toConvert.get("text"));
-        return test;
+    public String convert(@RequestBody Map<String,String> toConvert) {
+        return markdownService.convertMardownToHtml(toConvert.get("text"));
     }
 }

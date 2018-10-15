@@ -35,6 +35,11 @@ public class BlogApi {
         return blogService.getArticleByLink(link);
     }
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/full/{link}", method = RequestMethod.GET)
+    public Article getFullArticle(@PathVariable("link") String link) {
+        return blogService.getFullArticleByLink(link);
+    }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/push", method = RequestMethod.POST)
@@ -52,13 +57,15 @@ public class BlogApi {
         return blogService.search(keywords);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Collection<Card> list() {
         return blogService.listAll();
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/list/{cat}", method = RequestMethod.GET)
-    public Collection<Article> list(@PathVariable("cat") String cat) {
+    public Collection<Card> list(@PathVariable("cat") String cat) {
         return blogService.listByCategory(cat);
     }
 }

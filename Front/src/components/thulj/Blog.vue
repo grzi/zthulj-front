@@ -22,6 +22,7 @@
   import Footer from '@/components/thulj/commons/Footer.vue'
   import Card from '@/components/thulj/commons/Card.vue'
   import Article from '@/components/thulj/commons/Article.vue'
+  import axios from 'axios'
 
   export default {
     name: 'Blog',
@@ -35,42 +36,18 @@
     created () {
       document.title = 'Blog - Thulj.fr'
     },
+    mounted () {
+      axios.get('http://localhost:8080/api/blog/list/blog').then(response => {
+        this.articles = response.data
+      })
+        .catch(e => {
+
+        })
+    },
     data: function () {
       return {
         sectionTitle: 'zThulj > Blog',
         articles: [
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            icon: 'newspaper',
-            section: 'blog',
-            link: 'boyouboyuyou'
-          },
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            icon: 'newspaper',
-            section: 'blog',
-            link: 'areuhareuh'
-          },
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            icon: 'code',
-            section: 'projects',
-            link: 'dklzdjzlekdjzekljd'
-          },
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            icon: 'code',
-            section: 'projects',
-            link: 'straaaaaate'
-          }
         ]
       }
     }

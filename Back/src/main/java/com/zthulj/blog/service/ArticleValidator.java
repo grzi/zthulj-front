@@ -13,9 +13,9 @@ public class ArticleValidator {
             throw new BlogException(PREFIX_ERROR_VAL + "link");
         if (a.getValue() == null)
             throw new BlogException(PREFIX_ERROR_VAL + "value");
-        if(a.getValue().getTitle() == null || a.getValue().getTitle().isEmpty())
+        if(a.getTitle() == null || a.getTitle().isEmpty())
             throw new BlogException(PREFIX_ERROR_VAL + "value.title");
-        if(a.getValue().getContent() == null || a.getValue().getContent().isEmpty())
+        if(a.getValue().getContentMD() == null || a.getValue().getContentMD().isEmpty())
             throw new BlogException(PREFIX_ERROR_VAL + "value.content");
     }
 }

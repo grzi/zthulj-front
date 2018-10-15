@@ -32,6 +32,7 @@
   import TitleBar from '@/components/thulj/commons/TitleBar.vue'
   import Footer from '@/components/thulj/commons/Footer.vue'
   import Card from '@/components/thulj/commons/Card.vue'
+  import axios from 'axios'
 
   export default {
     name: 'Home',
@@ -44,38 +45,18 @@
     created () {
       document.title = 'Zthulj blog - Accueil'
     },
+    beforeMount () {
+      axios.get('http://localhost:8080/api/blog/list').then(response => {
+        this.cards = response.data
+      })
+        .catch(e => {
+
+        })
+    },
     data: function () {
       return {
         sectionTitle: 'zThulj > Accueil',
         cards: [
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            category: 'blog',
-            link: 'boyouboyuyou'
-          },
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            category: 'blog',
-            link: 'areuhareuh'
-          },
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            category: 'projects',
-            link: 'dklzdjzlekdjzekljd'
-          },
-          {
-            title: 'Le site fait peau neuve !',
-            description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
-            publishDate: '27/08/2018',
-            category: 'projects',
-            link: 'straaaaaate'
-          }
         ]
       }
     }

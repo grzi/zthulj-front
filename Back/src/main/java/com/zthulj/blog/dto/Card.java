@@ -10,6 +10,7 @@ public class Card implements Serializable {
     private String category;
     private String link;
 
+
     public String getTitle() {
         return title;
     }
