@@ -1,6 +1,7 @@
 package com.zthulj.blog.api;
 
 import com.zthulj.blog.dto.Article;
+import com.zthulj.blog.dto.Card;
 import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.service.BlogService;
 import javafx.util.Pair;
@@ -52,7 +53,7 @@ public class BlogApi {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Collection<Article> list() {
+    public Collection<Card> list() {
         return blogService.listAll();
     }
 

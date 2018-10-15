@@ -13,6 +13,7 @@ public class Article implements Serializable {
     @Id
     private String id;
     private String link;
+    private String description;
     private BlogPost value;
 
     public Article() {
@@ -47,17 +48,27 @@ public class Article implements Serializable {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Article)) return false;
         Article article = (Article) o;
-        return Objects.equals(getLink(), article.getLink()) &&
+        return Objects.equals(getId(), article.getId()) &&
+                Objects.equals(getLink(), article.getLink()) &&
+                Objects.equals(getDescription(), article.getDescription()) &&
                 Objects.equals(getValue(), article.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLink(), getValue());
+        return Objects.hash(getId(), getLink(), getDescription(), getValue());
     }
 }

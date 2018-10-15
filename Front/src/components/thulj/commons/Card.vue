@@ -5,7 +5,7 @@
                 <div class="badge blue-grey lighten-5">
                     <font-awesome-icon :icon="card.icon" size="2x" :class="card.icon"/>
                 </div>
-                <div class="card-title"><b><router-link :to='"/" + card.section + "/" + card.link'>{{card.title}}</router-link></b></div>
+                <div class="card-title"><b><router-link :to='"/" + card.category + "/" + card.link'>{{card.title}}</router-link></b></div>
                 <p class="grey-text text-darken-3 light">{{card.description}}</p>
                 <div class="datePublish"><b>Publié le : </b> {{card.publishDate}}</div>
             </div>
@@ -16,7 +16,20 @@
 <script>
   export default {
     name: 'Card',
-    props: ['card']
+    props: ['card'],
+    beforeMount () {
+      this.card.icon = this.transcodeCategoryToIcon(this.card.category)
+    },
+    methods: {
+      transcodeCategoryToIcon: function (category) {
+        switch (category) {
+        case 'blog': return 'newspaper'
+        case 'receipe': return 'utensils'
+        case 'projects': return 'code'
+        default: return 'newsletter'
+        }
+      }
+    }
   }
 </script>
 

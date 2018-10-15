@@ -23,9 +23,8 @@
       Comments
     },
     mounted () {
-      console.log()
       axios.get('http://localhost:8080/api/blog' + this.$route.path).then(response => {
-        this.article = response.data;
+        this.article = response.data
       })
         .catch(e => {
         })

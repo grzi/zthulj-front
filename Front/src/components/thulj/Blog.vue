@@ -4,7 +4,7 @@
         <TitleBar :sectionTitle='sectionTitle'></TitleBar>
         <div class="content">
             <div class="container center">
-                <Article v-if="$route.params.id != null "></Article>
+                <Article v-if="$route.params.id != null " :key="$route.params.id"></Article>
                 <div v-else class="row">
                     <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title"></Card>
                 </div>

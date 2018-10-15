@@ -9,12 +9,12 @@
                     <div>
                         <h5> <b>Hey ! Bienvenue :) </b></h5>
                     </div>
-                    <div>
+                    <div class="light">
                         Ce blog regroupe les différents billets que j'écris au fur et à mesure de mes expériences.
                         Attention /!\ mes écrits n'engagent que moi. :)
                     </div>
                     <div class="row"><h6><b>Derniers billets</b></h6></div>
-                    Liste des derniers billets publiés sur le site, toutes catégories confondues :
+                   <div class="light"> Liste des derniers billets publiés sur le site, toutes catégories confondues </div>
 
                     <div class="row margin-top-20">
                         <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title"/>
@@ -52,32 +52,28 @@
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            icon: 'newspaper',
-            section: 'blog',
+            category: 'blog',
             link: 'boyouboyuyou'
           },
           {
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            icon: 'newspaper',
-            section: 'blog',
+            category: 'blog',
             link: 'areuhareuh'
           },
           {
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            icon: 'code',
-            section: 'projects',
+            category: 'projects',
             link: 'dklzdjzlekdjzekljd'
           },
           {
             title: 'Le site fait peau neuve !',
             description: 'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.',
             publishDate: '27/08/2018',
-            icon: 'code',
-            section: 'projects',
+            category: 'projects',
             link: 'straaaaaate'
           }
         ]
