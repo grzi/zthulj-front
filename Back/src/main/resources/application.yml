@@ -7,3 +7,6 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: /tmp/zThulj_blog.log
   security.encoding-strength: 256
+jwt.signingkey: MayTheForceBeWithYou
+http.realmname: ThisIsTheRealName
+

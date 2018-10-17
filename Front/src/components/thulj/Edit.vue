@@ -126,7 +126,7 @@
       },
       saveArticle: function () {
         this.article.id = (this.article.id === null || this.article.id === '') ? '' : this.article.id
-        axios.post('http://localhost:8080/api/blog/push', this.article).then(response => {
+        axios.post('http://localhost:8080/api/blog/secured/push', this.article).then(response => {
           this.article = response.data
           if (response.status === 400) {
 

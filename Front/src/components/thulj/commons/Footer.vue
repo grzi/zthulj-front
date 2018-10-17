@@ -23,7 +23,7 @@
                     <ul>
                         <li><a class="white-text" href="/cv">Curriculum Vitae</a></li>
                         <li><a class="white-text" href="/blog">Blog</a></li>
-                        <li><a class="white-text" href="/bo">Back Office</a></li>
+                        <li><Login></Login></li>
                     </ul>
                 </div>
                 <div class="col l3 s12">
@@ -42,8 +42,12 @@
 </template>
 
 <script>
+  import Login from '@/components/thulj/utils/Login.vue'
   export default {
-    name: 'Footer'
+    name: 'Footer',
+    components: {
+      Login
+    }
   }
 </script>
 

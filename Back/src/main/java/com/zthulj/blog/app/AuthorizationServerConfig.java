@@ -27,10 +27,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
+        // TODO put this config in database
         configurer
                 .inMemory()
                 .withClient("testClient")
-                .secret("clientid")
+                .secret("{noop}clientid")
                 .authorizedGrantTypes("password")
                 .scopes("read", "write")
                 .resourceIds("resourceid");
@@ -47,3 +48,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
 }
+

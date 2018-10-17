@@ -1,5 +1,6 @@
 package com.zthulj.blog.app;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -19,6 +21,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${jwt.signingkey}")
+    private String signingKey;
+
+    @Value("${http.realmname}")
+    private String realmName;
+
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -27,7 +36,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("grzi").password("grzi").roles("ADMIN");
+        // TODO: put in database
+        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .withUser("grzi")
+                .password("grzi")
+                .roles("ADMIN")
+                .and()
+                .withUser("sysuser")
+                .password("password")
+                .roles("SYSTEM");
     }
 
     @Override
@@ -37,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic()
-                .realmName("Spring Boo")
+                .realmName(realmName)
                 .and()
                 .csrf()
                 .disable();
@@ -47,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("arehksjdhfkjsdhf");
+        converter.setSigningKey(signingKey);
         return converter;
     }
 
