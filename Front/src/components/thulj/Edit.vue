@@ -162,12 +162,7 @@
 
 <style scoped>
     #content{background:white;min-height:300px;padding:15px;border:1px solid gray;text-align:left;}
-.forceActive {
-    -webkit-transform: translateY(-14px) scale(0.8);
-    transform: translateY(-14px) scale(0.8);
-    -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
-}
+
 .forceDisplay{display:inline !important;}
 .icon_style{
     position: absolute;
