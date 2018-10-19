@@ -6,13 +6,13 @@
                 <h4>Login</h4>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Username" id="first_name" type="text" class="validate">
+                        <input placeholder="Username" id="first_name" type="text" class="validate" v-model="user">
                         <label for="first_name" class="forceActive active">First Name</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Password" id="password" type="password" class="validate">
+                        <input placeholder="Password" id="password" type="password" class="validate" v-model="password">
                         <label for="password" class="forceActive active">Password</label>
                     </div>
                 </div>
@@ -26,7 +26,6 @@
 <script>
   import M from 'materialize-css'
   import axios from 'axios'
-
   export default {
     name: 'Login',
     mounted () {
@@ -35,24 +34,27 @@
     },
     methods: {
       login: function () {
-        axios.request(
-          {
-            url: 'http://localhost:8080/oauth/token?grant_type=password&username=grzi&password=grzi',
-            method: 'post',
-            auth: {
-              username: 'testClient',
-              password: 'clientid'
-            },
-            data: {
-              'grant_type': 'client_credentials',
-              'scope': 'public'
-            }
+        axios.post('http://localhost:8080/oauth/token?grant_type=password&username=' + this.user + '&password=' + this.password,
+                   '',
+                   {
+                     headers:
+                       {
+                         'content-type': 'application/x-www-form-urlencoded',
+                         'authorization': 'Basic ' + 'dGVzdENsaWVudDpjbGllbnRpZA=='
+                       }
         })
           .then(response => {
-
+            console.log('token : ' + this.$store.state.access_token)
+            this.$store.state.access_token = response.data.access_token
           })
           .catch(e => {
           })
+      }
+    },
+    data: function () {
+      return {
+        user: '',
+        password: ''
       }
     }
   }

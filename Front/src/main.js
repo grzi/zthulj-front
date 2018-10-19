@@ -1,7 +1,10 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import {router} from './utils/router-config.js'
 import './../node_modules/materialize-css/dist/js/materialize.min.js'
 import './../node_modules/materialize-css/dist/css/materialize.min.css'
+
+import store from './utils/store-pattern.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -37,10 +40,12 @@ library.add(faPlusSquare, faBold, faItalic, faLink, faCode, faListOl, faListUl, 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
+Vue.use(Vuex)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(require('./App.vue').default)
 })

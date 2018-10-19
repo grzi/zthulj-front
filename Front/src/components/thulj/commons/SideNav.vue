@@ -30,7 +30,7 @@
           <font-awesome-icon icon="utensils" size="2x" color="#e23d27"/>
         </router-link></li>
 
-        <li :class='{active:activeSection=="editPost"}'>
+        <li :class='{active:activeSection=="editPost"}' v-if="this.access_token !== ''">
             <router-link to="/edit" title="Nouvel article">
                 <font-awesome-icon icon="plus-square" size="2x" color="#EEEEEE"/>
             </router-link></li>
@@ -51,11 +51,15 @@
   export default {
     name: 'SideNav',
     mounted () {
-
     },
     props: {
       msg: String,
       activeSection: String
+    },
+    data: function () {
+      return {
+        access_token: this.$store.state.access_token
+      }
     }
   }
 </script>
