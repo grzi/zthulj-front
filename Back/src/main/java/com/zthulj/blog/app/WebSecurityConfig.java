@@ -1,5 +1,7 @@
 package com.zthulj.blog.app;
 
+import com.zthulj.blog.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -29,23 +33,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${http.realmname}")
     private String realmName;
 
+    @Autowired
+    CustomUserDetailsService customUserDetailService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // TODO: put in database
-        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("grzi")
-                .password("grzi")
-                .roles("ADMIN")
-                .and()
-                .withUser("sysuser")
-                .password("password")
-                .roles("SYSTEM");
+        auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder);
     }
 
     @Override

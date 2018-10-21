@@ -4,6 +4,22 @@
         <div id="loginmodal" class="modal">
             <div class="modal-content black-text">
                 <h4>Login</h4>
+                <div class="row" id="alert_box" v-bind:class="messageboxclass">
+                    <div class="col s12 m12">
+                        <div class="card" v-bind:class="messageColor">
+                            <div class="row">
+                                <div class="col s12 m10">
+                                    <div class="card-content white-text left-align" id="message">
+                                        {{ messageinfo }}
+                                    </div>
+                                </div>
+                                <div class="col s12 m2">
+                                    <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input placeholder="Username" id="first_name" type="text" class="validate" v-model="user">
@@ -44,7 +60,9 @@
                        }
         })
           .then(response => {
-            console.log('token : ' + this.$store.state.access_token)
+            this.messageboxclass = 'forceDisplay'
+            this.messageColor = 'green lighten-2'
+            this.messageinfo = 'Login successful'
             this.$store.state.access_token = response.data.access_token
           })
           .catch(e => {
@@ -54,12 +72,16 @@
     data: function () {
       return {
         user: '',
-        password: ''
+        password: '',
+        messageColor: '',
+        messageinfo: '',
+        messageboxclass: ''
       }
     }
   }
 </script>
 
 <style scoped>
-
+    #alert_box{display:none;}
+    .forceDisplay{display:inline !important;}
 </style>

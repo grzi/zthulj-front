@@ -56,9 +56,9 @@
       msg: String,
       activeSection: String
     },
-    data: function () {
-      return {
-        access_token: this.$store.state.access_token
+    computed: {
+      access_token () {
+        return this.$store.state.access_token
       }
     }
   }

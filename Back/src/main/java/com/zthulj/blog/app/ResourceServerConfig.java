@@ -11,11 +11,12 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
     @Autowired
     private ResourceServerTokenServices tokenServices;
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(ResourceServerSecurityConfigurer resources){
         resources.resourceId("resourceid").tokenServices(tokenServices);
     }
 
@@ -26,7 +27,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/public/**").permitAll()
-                .antMatchers("/api/secured/**" ).authenticated()
+                .antMatchers("/api/secured/**" ).hasRole("ADMIN")
                 .antMatchers("/oauth/token").permitAll()
         ;
     }

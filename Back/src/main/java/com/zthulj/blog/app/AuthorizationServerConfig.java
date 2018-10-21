@@ -1,8 +1,10 @@
 package com.zthulj.blog.app;
 
+import com.zthulj.blog.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -25,14 +27,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         // TODO put this config in database
         configurer
                 .inMemory()
                 .withClient("testClient")
-                .secret("{noop}clientid")
-                .authorizedGrantTypes("password")
+                .secret("$2a$10$tWY.FjKhoHtvnkpr0wrYj.fA4e.GRwTCjRLImfs3HSCf2fA.EuEfe")
+                .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read", "write")
                 .resourceIds("resourceid");
     }
@@ -44,7 +49,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore)
                 .accessTokenConverter(accessTokenConverter)
                 .tokenEnhancer(enhancerChain)
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager).userDetailsService(userDetailsService);
     }
 
 }

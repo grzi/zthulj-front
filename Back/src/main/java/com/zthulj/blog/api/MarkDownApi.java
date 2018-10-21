@@ -15,7 +15,6 @@ public class MarkDownApi {
     MardownService markdownService;
 
     @CrossOrigin(origins = "*")
-    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = SecurityConfig.SECURED_API + "/md/convertToHtml", method = RequestMethod.POST)
     public String convert(@RequestBody Map<String,String> toConvert) {
         return markdownService.convertMardownToHtml(toConvert.get("text"));

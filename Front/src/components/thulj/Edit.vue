@@ -104,7 +104,7 @@
     },
     beforeMount () {
       if (typeof this.$route.params.link !== 'undefined') {
-        axios.get('http://localhost:8080/api/blog/full/' + this.$route.params.link).then(response => {
+        axios.get('http://localhost:8080/api/public/blog/full/' + this.$route.params.link).then(response => {
           this.article = response.data
         })
       }
@@ -117,16 +117,24 @@
     },
     methods: {
       convertAndPreview: function () {
-        axios.post('http://localhost:8080/api/md/convertToHtml', {'text': document.getElementById('content').value}).then(response => {
+        axios.post('http://localhost:8080/api/secured/md/convertToHtml',
+                   {'text': document.getElementById('content').value}
+        ).then(response => {
           // JSON responses are automatically parsed.
           this.article.value.contentHtml = response.data
           M.Modal.getInstance(document.getElementById('modal1')).open()
-        })
+        }
+        )
           .catch(e => { })
       },
       saveArticle: function () {
         this.article.id = (this.article.id === null || this.article.id === '') ? '' : this.article.id
-        axios.post('http://localhost:8080/api/blog/secured/push', this.article).then(response => {
+        axios.post('http://localhost:8080/api/secured/blog/push', this.article,
+                   {
+                     headers: {
+                       'authorization': 'Bearer ' + this.$store.state.access_token
+                     }
+        }).then(response => {
           this.article = response.data
           if (response.status === 400) {
 
