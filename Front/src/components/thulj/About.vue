@@ -117,7 +117,7 @@
           ],
           experiences: [
             {
-              name: 'TEST Experience',
+              name: 'TEST Experience1',
               enterprise: 'CGI France',
               date: 'Depuis 2018',
               description: 'GNA GNA GNA GNA GNA GNA GNA GNA GNA GNA',

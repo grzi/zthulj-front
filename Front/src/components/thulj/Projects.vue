@@ -33,7 +33,7 @@
       document.title = 'Projets - Thulj.fr'
     },
     mounted () {
-      axios.get('http://localhost:8080/api/blog/list/projects').then(response => {
+      axios.get('http://localhost:8080/api/public/blog/list/projects').then(response => {
         this.articles = response.data
       })
         .catch(e => {

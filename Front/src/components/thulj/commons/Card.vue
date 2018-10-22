@@ -36,7 +36,7 @@
 <style scoped>
     .card {
         z-index: 1;
-
+        height:230px !important;
     }
     .card .card-content{padding-top:12px !important;}
 
@@ -46,21 +46,23 @@
 
     .badge {
         position: absolute;
-        right: 0;
-        top: 0;
+        left: 0;
+        bottom: 0;
         padding: 10px;
-        border-left:1px solid #DDD;
-        border-bottom:1px solid #DDD;
+        border-right:1px solid #DDD;
+        border-top:1px solid #DDD;
     }
 
     .datePublish {
-        margin-top: 25px;
         font-size: 14px;
         text-align:right;
+        position:absolute;
+        bottom: 15px;
+        right:15px;
     }
     .newspaper{color:#00a0d4;}
     .code{color:#df0075;}
     .utensils{color:#e23d27;}
-    a{color:black;cursor:pointer;text-transform: uppercase;font-size:22px}
+    a{color:black;cursor:pointer;text-transform: uppercase;font-size:14px; font-weight:bold;}
     a:hover{text-decoration: underline;}
 </style>

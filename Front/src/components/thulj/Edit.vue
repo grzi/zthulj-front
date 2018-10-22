@@ -71,7 +71,7 @@
                         </div>
                         <div id="modal1" class="modal">
                             <div class="modal-content presee blogpost" id="presee">
-                                <Article :article="article"></Article>
+                                <ArticleContent :article="article" :access_token="''"></ArticleContent>
                             </div>
                         </div>
 
@@ -89,7 +89,7 @@
   import TitleBar from '@/components/thulj/commons/TitleBar.vue'
   import Footer from '@/components/thulj/commons/Footer.vue'
   import MarkdownPalette from '@/components/thulj/utils/MarkdownPalette.vue'
-  import Article from '@/components/thulj/commons/Article.vue'
+  import ArticleContent from '@/components/thulj/commons/ArticleContent.vue'
   import M from 'materialize-css'
   import axios from 'axios'
 
@@ -100,7 +100,7 @@
       Footer,
       TitleBar,
       MarkdownPalette,
-      Article
+      ArticleContent
     },
     beforeMount () {
       if (typeof this.$route.params.link !== 'undefined') {
@@ -118,7 +118,12 @@
     methods: {
       convertAndPreview: function () {
         axios.post('http://localhost:8080/api/secured/md/convertToHtml',
-                   {'text': document.getElementById('content').value}
+                   {'text': this.article.value.contentMD},
+                   {
+                     headers: {
+                       'authorization': 'Bearer ' + this.$store.state.access_token
+                     }
+                   }
         ).then(response => {
           // JSON responses are automatically parsed.
           this.article.value.contentHtml = response.data
@@ -180,5 +185,11 @@
     color: white;
     cursor:pointer;
 }
+    .forceActive {
+        -webkit-transform: translateY(-14px) scale(0.8);
+        transform: translateY(-14px) scale(0.8);
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
     #alert_box{display:none;}
 </style>

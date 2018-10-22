@@ -33,7 +33,7 @@
       document.title = 'Recettes'
     },
     mounted () {
-      axios.get('http://localhost:8080/api/blog/list/recipes').then(response => {
+      axios.get('http://localhost:8080/api/public/blog/list/recipes').then(response => {
         this.articles = response.data
       })
         .catch(e => {

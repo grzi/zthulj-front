@@ -11,7 +11,7 @@
                         <input name="Search" ref="keyword" class="header-search-input z-depth-2" placeholder="Chercher. . ."
                                type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass" v-on:focus="searchArticles">
                         <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseleave">
-                            <div v-for="result in results" v-bind:key="result.link">
+                            <div v-for="result in results" v-bind:key="result.title">
                                 <router-link @click.native="reset()" :to='"/" + result.category + "/" + result.link' class="linkSearch" >
                                     <span><b>{{result.category}}</b></span> > <span>{{result.title}}</span>
                                 </router-link>
@@ -36,7 +36,7 @@
       },
       searchArticles: function () {
         if (this.keywords.length > 0) {
-          axios.get('http://localhost:8080/api/blog/search/' + this.keywords).then(response => {
+          axios.get('http://localhost:8080/api/public/blog/search/' + this.keywords).then(response => {
             this.results = response.data
             if (this.results.length > 0) {
               this.resultsClass = 'forceDisplay'

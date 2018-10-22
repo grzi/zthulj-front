@@ -46,7 +46,7 @@
       document.title = 'Zthulj blog - Accueil'
     },
     beforeMount () {
-      axios.get('http://localhost:8080/api/blog/list').then(response => {
+      axios.get('http://localhost:8080/api/public/blog/list').then(response => {
         this.cards = response.data
       })
         .catch(e => {

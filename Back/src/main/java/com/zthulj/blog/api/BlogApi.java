@@ -42,7 +42,7 @@ public class BlogApi {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = SecurityConfig.PUBLIC_API + "blog/search/{keywords}", method = RequestMethod.GET)
+    @RequestMapping(value = SecurityConfig.PUBLIC_API + "/blog/search/{keywords}", method = RequestMethod.GET)
     public Collection<?> search(@PathVariable("keywords") String keywords) {
         return blogService.search(keywords);
     }
