@@ -5,7 +5,7 @@
 <script>
   import ArticleContent from '@/components/thulj/commons/ArticleContent'
   import axios from 'axios'
-
+  import Prism from 'prismjs'
   export default {
     name: 'Article',
     components: {
@@ -14,14 +14,22 @@
     beforeMount () {
       axios.get('http://localhost:8080/api/public/blog' + this.$route.path).then(response => {
         this.article = response.data
+        Prism.highlightAll(this.article.value.contentHtml)
+        console.log(this.article.value.contentHtml)
       })
         .catch(e => {
         })
     },
-    props: ['article'],
     computed: {
       access_token () {
         return this.$store.state.access_token
+      }
+    },
+    data: function () {
+      return {
+        article: {
+          value: { }
+        }
       }
     }
   }

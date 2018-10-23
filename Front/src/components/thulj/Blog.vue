@@ -37,7 +37,7 @@
       document.title = 'Blog - Thulj.fr'
     },
     mounted () {
-      axios.get('http://localhost:8080/api/blog/list/blog').then(response => {
+      axios.get('http://localhost:8080/api/public/blog/list/blog').then(response => {
         this.articles = response.data
       })
         .catch(e => {

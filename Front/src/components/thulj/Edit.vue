@@ -92,6 +92,7 @@
   import ArticleContent from '@/components/thulj/commons/ArticleContent.vue'
   import M from 'materialize-css'
   import axios from 'axios'
+  import Prism from 'prismjs'
 
   export default {
     name: 'Edit',
@@ -126,7 +127,9 @@
                    }
         ).then(response => {
           // JSON responses are automatically parsed.
-          this.article.value.contentHtml = response.data
+          var test = response.data
+          Prism.highlightAll(test)
+          this.article.value.contentHtml = test
           M.Modal.getInstance(document.getElementById('modal1')).open()
         }
         )
@@ -158,7 +161,7 @@
           })
       },
       paletteChange: function (md) {
-        this.article.value.content += md
+        this.article.value.contentMD += md
       }
     },
     data: function () {

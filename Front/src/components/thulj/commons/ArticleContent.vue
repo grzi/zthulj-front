@@ -7,7 +7,7 @@
             <span class="minititle"> <font-awesome-icon icon="comment"/><span class="val">(0) Commentaires</span></span>
             <router-link :to="'/edit/' + article.link" class="minititle" v-if="this.access_token !== ''"> <font-awesome-icon icon="edit"/></router-link>
         </div>
-        <div class="articlecontent container" v-html="article.value.contentHtml">
+        <div class="articlecontent container" v-html="this.article.value.contentHtml" id="content">
 
         </div>
         <!--Comments></Comments> -->
@@ -15,9 +15,13 @@
 </template>
 
 <script>
+  import Prism from 'prismjs'
   export default {
     name: 'ArticleContent',
-    props: ['article', 'access_token']
+    props: ['article', 'access_token'],
+    updated () {
+      Prism.highlightAll(document.getElementById('article'))
+    }
   }
 </script>
 
