@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import Login from '@/components/thulj/utils/Login.vue'
+  import Login from '@/components/thulj/admin/Login.vue'
   export default {
     name: 'Footer',
     components: {

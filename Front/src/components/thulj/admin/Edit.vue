@@ -85,11 +85,11 @@
 </template>
 
 <script>
-  import SideNav from '@/components/thulj/commons/SideNav.vue'
-  import TitleBar from '@/components/thulj/commons/TitleBar.vue'
-  import Footer from '@/components/thulj/commons/Footer.vue'
-  import MarkdownPalette from '@/components/thulj/utils/MarkdownPalette.vue'
-  import ArticleContent from '@/components/thulj/commons/ArticleContent.vue'
+  import SideNav from '@/components/thulj/structure/SideNav.vue'
+  import TitleBar from '@/components/thulj/structure/TitleBar.vue'
+  import Footer from '@/components/thulj/structure/Footer.vue'
+  import MarkdownPalette from '@/components/thulj/admin/MarkdownPalette.vue'
+  import ArticleContent from '@/components/thulj/article/ArticleContent.vue'
   import M from 'materialize-css'
   import axios from 'axios'
   import Prism from 'prismjs'

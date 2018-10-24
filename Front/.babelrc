@@ -15,5 +15,6 @@
       "plugins": ["line-numbers"],
       "theme": "tomorrow",
       "css": true
-    }]]
+    }]
+  ]
 }

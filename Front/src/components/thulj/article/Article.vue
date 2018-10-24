@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import ArticleContent from '@/components/thulj/commons/ArticleContent'
+  import ArticleContent from '@/components/thulj/article/ArticleContent'
   import axios from 'axios'
   import Prism from 'prismjs'
   export default {

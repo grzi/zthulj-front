@@ -28,10 +28,10 @@
 </template>
 
 <script>
-  import SideNav from '@/components/thulj/commons/SideNav.vue'
-  import TitleBar from '@/components/thulj/commons/TitleBar.vue'
-  import Footer from '@/components/thulj/commons/Footer.vue'
-  import Card from '@/components/thulj/commons/Card.vue'
+  import SideNav from '@/components/thulj/structure/SideNav.vue'
+  import TitleBar from '@/components/thulj/structure/TitleBar.vue'
+  import Footer from '@/components/thulj/structure/Footer.vue'
+  import Card from '@/components/thulj/article/Card.vue'
   import axios from 'axios'
 
   export default {

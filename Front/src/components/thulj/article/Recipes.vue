@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SideNav :activeSection='"code"'></SideNav>
+    <SideNav :activeSection='"utensils"'></SideNav>
     <TitleBar :sectionTitle='sectionTitle'></TitleBar>
     <div class="content">
       <div class="container center">
@@ -10,19 +10,19 @@
         </div>
       </div>
     </div>
-      <Footer></Footer>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-  import SideNav from '@/components/thulj/commons/SideNav.vue'
-  import TitleBar from '@/components/thulj/commons/TitleBar.vue'
-  import Footer from '@/components/thulj/commons/Footer.vue'
-  import Card from '@/components/thulj/commons/Card.vue'
+  import SideNav from '@/components/thulj/structure/SideNav.vue'
+  import TitleBar from '@/components/thulj/structure/TitleBar.vue'
+  import Footer from '@/components/thulj/structure/Footer.vue'
+  import Card from '@/components/thulj/article/Card.vue'
   import axios from 'axios'
 
   export default {
-    name: 'Projects',
+    name: 'Recipes',
     components: {
       SideNav,
       Footer,
@@ -30,10 +30,10 @@
       Card
     },
     created () {
-      document.title = 'Projets - Thulj.fr'
+      document.title = 'Recettes'
     },
     mounted () {
-      axios.get('http://localhost:8080/api/public/blog/list/projects').then(response => {
+      axios.get('http://localhost:8080/api/public/blog/list/recipes').then(response => {
         this.articles = response.data
       })
         .catch(e => {
@@ -42,7 +42,7 @@
     },
     data: function () {
       return {
-        sectionTitle: 'zThulj > Projets',
+        sectionTitle: 'zThulj > Recettes',
         articles: [
         ]
       }
@@ -51,7 +51,7 @@
 </script>
 
 <style scoped>
-    .container {
-        width: 95%;
-    }
+  .container {
+    width: 95%;
+  }
 </style>
