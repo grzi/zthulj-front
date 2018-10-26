@@ -31,7 +31,11 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="objectSection" type="text" disabled v-model="article.category">
+                                <select id="objectSection" type="text" v-model="article.category">
+                                    <option>blog</option>
+                                    <option>projects</option>
+                                    <option>recipes</option>
+                                </select>
                                 <label for="objectId" class="forceActive active">Catégorie de l'article</label>
                             </div>
                         </div>
@@ -105,7 +109,7 @@
     },
     beforeMount () {
       if (typeof this.$route.params.link !== 'undefined') {
-        axios.get('http://localhost:8080/api/public/blog/full/' + this.$route.params.link).then(response => {
+        axios.get(process.env.ROOT_API + 'api/public/blog/full/' + this.$route.params.link).then(response => {
           this.article = response.data
         })
       }
@@ -115,10 +119,12 @@
       M.textareaAutoResize(document.getElementById('content'))
       var elem = document.getElementById('modal1')
       M.Modal.init(elem, null)
+      var elems = document.querySelectorAll('select')
+      M.FormSelect.init(elems, null)
     },
     methods: {
       convertAndPreview: function () {
-        axios.post('http://localhost:8080/api/secured/md/convertToHtml',
+        axios.post(process.env.ROOT_API + 'api/secured/md/convertToHtml',
                    {'text': this.article.value.contentMD},
                    {
                      headers: {
@@ -137,7 +143,7 @@
       },
       saveArticle: function () {
         this.article.id = (this.article.id === null || this.article.id === '') ? '' : this.article.id
-        axios.post('http://localhost:8080/api/secured/blog/push', this.article,
+        axios.post(process.env.ROOT_API + 'api/secured/blog/push', this.article,
                    {
                      headers: {
                        'authorization': 'Bearer ' + this.$store.state.access_token

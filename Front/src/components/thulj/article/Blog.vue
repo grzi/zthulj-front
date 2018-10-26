@@ -1,7 +1,7 @@
 <template>
     <div>
-        <SideNav :activeSection='"newspaper"'></SideNav>
-        <TitleBar :sectionTitle='sectionTitle'></TitleBar>
+        <SideNav :activeSection='section'></SideNav>
+        <TitleBar :sectionTitle='section_title'></TitleBar>
         <div class="content">
             <div class="container center">
                 <Article v-if="$route.params.id != null " :key="$route.params.id"></Article>
@@ -33,11 +33,9 @@
       TitleBar,
       Article
     },
-    created () {
-      document.title = 'Blog - Thulj.fr'
-    },
     mounted () {
-      axios.get('http://localhost:8080/api/public/blog/list/blog').then(response => {
+      document.title = this.section_title
+      axios.get(process.env.ROOT_API + 'api/public/blog/list/' + this.section).then(response => {
         this.articles = response.data
       })
         .catch(e => {
@@ -46,11 +44,21 @@
     },
     data: function () {
       return {
-        sectionTitle: 'zThulj > Blog',
         articles: [
         ]
       }
-    }
+    },
+    watch: {
+      '$route' (newId, oldId) {
+        axios.get(process.env.ROOT_API + 'api/public/blog/list/' + this.section).then(response => {
+          this.articles = response.data
+        })
+          .catch(e => {
+
+          })
+      }
+    },
+    props: ['section_title', 'section']
   }
 </script>
 

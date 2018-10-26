@@ -36,7 +36,7 @@
       },
       searchArticles: function () {
         if (this.keywords.length > 0) {
-          axios.get('http://localhost:8080/api/public/blog/search/' + this.keywords).then(response => {
+          axios.get(process.env.ROOT_API + 'api/public/blog/search/' + this.keywords).then(response => {
             this.results = response.data
             if (this.results.length > 0) {
               this.resultsClass = 'forceDisplay'

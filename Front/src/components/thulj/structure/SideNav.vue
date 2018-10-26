@@ -18,14 +18,14 @@
       <li>
         <div class="divider"></div>
       </li>
-      <li :class='{active:activeSection=="newspaper"}'><router-link to="/blog" title="Blog">
+      <li :class='{active:activeSection=="blog"}'><router-link to="/blog" title="Blog">
         <font-awesome-icon icon="newspaper" size="2x" color="#00a0d4"/>
       </router-link></li>
-      <li :class='{active:activeSection=="code"}'><router-link to="/projects" title="Projects">
+      <li :class='{active:activeSection=="projects"}'><router-link to="/projects" title="Projects">
         <font-awesome-icon icon="code" size="2x" color="#df0075"/>
       </router-link></li>
 
-      <li :class='{active:activeSection=="utensils"}'>
+      <li :class='{active:activeSection=="receipes"}'>
         <router-link to="/recipes" title="Recettes">
           <font-awesome-icon icon="utensils" size="2x" color="#e23d27"/>
         </router-link></li>

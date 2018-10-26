@@ -4,13 +4,13 @@
         <div id="loginmodal" class="modal">
             <div class="modal-content black-text">
                 <h4>Login</h4>
-                <div class="row" id="alert_box" v-bind:class="messageboxclass">
+                <div class="row" id="alert_box" v-bind:class="messageBoxClass">
                     <div class="col s12 m12">
                         <div class="card" v-bind:class="messageColor">
                             <div class="row">
                                 <div class="col s12 m10">
                                     <div class="card-content white-text left-align" id="message">
-                                        {{ messageinfo }}
+                                        {{ messageInfo }}
                                     </div>
                                 </div>
                                 <div class="col s12 m2">
@@ -50,7 +50,7 @@
     },
     methods: {
       login: function () {
-        axios.post('http://localhost:8080/oauth/token?grant_type=password&username=' + this.user + '&password=' + this.password,
+        axios.post(process.env.ROOT_API + 'oauth/token?grant_type=password&username=' + this.user + '&password=' + this.password,
                    '',
                    {
                      headers:
@@ -60,9 +60,9 @@
                        }
         })
           .then(response => {
-            this.messageboxclass = 'forceDisplay'
+            this.messageBoxClass = 'forceDisplay'
             this.messageColor = 'green lighten-2'
-            this.messageinfo = 'Login successful'
+            this.messageInfo = 'Login successful'
             this.$store.state.access_token = response.data.access_token
           })
           .catch(e => {
@@ -74,8 +74,8 @@
         user: '',
         password: '',
         messageColor: '',
-        messageinfo: '',
-        messageboxclass: ''
+        messageInfo: '',
+        messageBoxClass: ''
       }
     }
   }

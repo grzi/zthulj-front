@@ -3,7 +3,7 @@
         <div class="card white">
             <div class="card-content">
                 <div class="badge blue-grey lighten-5">
-                    <font-awesome-icon :icon="card.icon" size="2x" :class="card.icon"/>
+                    <font-awesome-icon v-if="icon!=''" :icon="icon" size="2x" :class="icon"/>
                 </div>
                 <div class="card-title"><b><router-link :to='"/" + card.category + "/" + card.link'>{{card.title}}</router-link></b></div>
                 <p class="grey-text text-darken-3 light">{{card.description}}</p>
@@ -17,17 +17,25 @@
   export default {
     name: 'Card',
     props: ['card'],
-    beforeMount () {
-      this.card.icon = this.transcodeCategoryToIcon(this.card.category)
+    mounted () {
+      this.icon = this.transcodeCategoryToIcon(this.card.category)
+    },
+    updated () {
+      this.icon = this.transcodeCategoryToIcon(this.card.category)
     },
     methods: {
       transcodeCategoryToIcon: function (category) {
         switch (category) {
         case 'blog': return 'newspaper'
-        case 'receipe': return 'utensils'
+        case 'recipes': return 'utensils'
         case 'projects': return 'code'
         default: return 'newsletter'
         }
+      }
+    },
+    data: function () {
+      return {
+        icon: ''
       }
     }
   }

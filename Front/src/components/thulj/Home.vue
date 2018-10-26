@@ -7,14 +7,23 @@
 
                 <div class="row">
                     <div>
-                        <h5> <b>Hey ! Bienvenue :) </b></h5>
+                        <div class="title-home">Bienvenue, voyageur.</div>
                     </div>
-                    <div class="light">
-                        Ce blog regroupe les différents billets que j'écris au fur et à mesure de mes expériences.
-                        Attention /!\ mes écrits n'engagent que moi. :)
+                    <div class="light margin-top-20">
+                        <div>Je suis <span class="boldNormal">Jérémy</span>, consultant Zenika <span class="boldNormal">passionné</span> ! </div>
+                        <div class="margin-top-20">Je ne savais pas quoi faire alors j'ai fait ce blog !
+                        Je le voyais comme un moyen de tester vue.js, et de me construire un référentiel perso pour mes notes.
+                            Il présente mes <span class="boldNormal">pensées</span> et <span class="boldNormal">capitalisations</span>sur divers sujets (tech, projets, cuisine, sport...
+                        toute les choses que je souhaite écrire)
+                        </div>
                     </div>
-                    <div class="row"><h6><b>Derniers billets</b></h6></div>
-                   <div class="light"> Liste des derniers billets publiés sur le site, toutes catégories confondues </div>
+                    <div class="light margin-top-20">
+                        <b>Mes écrits n'engagent que moi.</b>
+                    </div>
+                    <div class="subTitle-home margin-top-20">
+                        Derniers articles
+                    </div>
+                   <div class="light"> Liste des derniers articles publiés sur le site, toutes catégories confondues </div>
 
                     <div class="row margin-top-20">
                         <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title"/>
@@ -46,7 +55,7 @@
       document.title = 'Zthulj blog - Accueil'
     },
     beforeMount () {
-      axios.get('http://localhost:8080/api/public/blog/list').then(response => {
+      axios.get(process.env.ROOT_API + 'api/public/blog/list').then(response => {
         this.cards = response.data
       })
         .catch(e => {
@@ -68,13 +77,16 @@
         margin-top: 20px;
     }
 
-    #index-banner {
-        background-image: url("../../assets/header.jpg");
+    .title-home{
+        font-weight: lighter;
+        font-size:32px;
+        color:#444;
     }
 
-    .decaleLiens {
-        margin-left: 20px;
-        color: gray;
+    .subTitle-home{
+        font-weight: lighter;
+        font-size:24px;
+        color:#444;
     }
 
     .decaleLiens a {
@@ -85,5 +97,6 @@
         color: #4B4B4B;
         cursor: pointer;
     }
+    .boldNormal{font-weight:bold;}
 
 </style>

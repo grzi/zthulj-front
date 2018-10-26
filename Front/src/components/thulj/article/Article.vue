@@ -12,7 +12,7 @@
       ArticleContent
     },
     beforeMount () {
-      axios.get('http://localhost:8080/api/public/blog' + this.$route.path).then(response => {
+      axios.get(process.env.ROOT_API + 'api/public/blog' + this.$route.path).then(response => {
         this.article = response.data
         Prism.highlightAll(this.article.value.contentHtml)
         console.log(this.article.value.contentHtml)
