@@ -21,6 +21,7 @@ public class Article implements Serializable {
     private Date publishDate;
     private String formattedDate;
     private String author;
+    private String imageCard;
 
     private BlogPost value;
 
@@ -112,6 +113,14 @@ public class Article implements Serializable {
         this.formattedDate = formattedDate;
     }
 
+    public String getImageCard() {
+        return imageCard;
+    }
+
+    public void setImageCard(String imageCard) {
+        this.imageCard = imageCard;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,12 +133,14 @@ public class Article implements Serializable {
                 Objects.equals(getCategory(), article.getCategory()) &&
                 Objects.equals(getSubtitle(), article.getSubtitle()) &&
                 Objects.equals(getPublishDate(), article.getPublishDate()) &&
+                Objects.equals(getFormattedDate(), article.getFormattedDate()) &&
                 Objects.equals(getAuthor(), article.getAuthor()) &&
+                Objects.equals(getImageCard(), article.getImageCard()) &&
                 Objects.equals(getValue(), article.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLink(), getDescription(), getTitle(), getCategory(), getSubtitle(), getPublishDate(), getAuthor(), getValue());
+        return Objects.hash(getId(), getLink(), getDescription(), getTitle(), getCategory(), getSubtitle(), getPublishDate(), getFormattedDate(), getAuthor(), getImageCard(), getValue());
     }
 }

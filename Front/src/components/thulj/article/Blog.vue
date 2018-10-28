@@ -6,7 +6,7 @@
             <div class="container center">
                 <Article v-if="$route.params.id != null " :key="$route.params.id"></Article>
                 <div v-else class="row">
-                    <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title"></Card>
+                    <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title" :class="'col s12 m6 l6'"></Card>
                 </div>
 
             </div>

@@ -9,24 +9,31 @@
                     <div>
                         <div class="title-home">Bienvenue, voyageur.</div>
                     </div>
-                    <div class="light margin-top-20">
-                        <div>Je suis <span class="boldNormal">Jérémy</span>, consultant Zenika <span class="boldNormal">passionné</span> ! </div>
-                        <div class="margin-top-20">Je ne savais pas quoi faire alors j'ai fait ce blog !
-                        Je le voyais comme un moyen de tester vue.js, et de me construire un référentiel perso pour mes notes.
-                            Il présente mes <span class="boldNormal">pensées</span> et <span class="boldNormal">capitalisations</span>sur divers sujets (tech, projets, cuisine, sport...
-                        toute les choses que je souhaite écrire)
+                    <div class="row light margin-top-20">
+                        <div class="col s12 m12 l8">
+                            <div>Je suis <span class="boldNormal">Jérémy</span>, consultant Zenika <span class="boldNormal">passionné</span> ! </div>
+                            <div class="margin-top-20">Je ne savais pas quoi faire alors j'ai fait ce blog !</div>
+                            <div class="margin-top-20">Je le voyais comme un moyen de tester vue.js, et de me construire un référentiel perso pour mes notes.
+                                Il présente mes <span class="boldNormal">pensées</span> et <span class="boldNormal">capitalisations</span> sur divers sujets (tech, projets, cuisine, sport...
+                            toutes les choses que je souhaite écrire)
+                            </div>
+                            <div class="subTitle-home margin-top-20">
+                                Derniers articles
+                            </div>
+                            <div id="carousel" class="carousel carousel-slider center">
+                                <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title" class="carousel-item"/>
+                            </div>
+
+                            <div class="light margin-top-20">
+                                <b>Mes écrits n'engagent que moi.</b>
+                            </div>
+                        </div>
+                        <div class="col s12 m12 l4">
+                            <Timeline :id="'zThulj'" :sourceType="'profile'" :options="{ tweetLimit: '2' }"/>
                         </div>
                     </div>
-                    <div class="light margin-top-20">
-                        <b>Mes écrits n'engagent que moi.</b>
-                    </div>
-                    <div class="subTitle-home margin-top-20">
-                        Derniers articles
-                    </div>
-                   <div class="light"> Liste des derniers articles publiés sur le site, toutes catégories confondues </div>
-
                     <div class="row margin-top-20">
-                        <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title"/>
+
                     </div>
                 </div>
 
@@ -42,6 +49,30 @@
   import Footer from '@/components/thulj/structure/Footer.vue'
   import Card from '@/components/thulj/article/Card.vue'
   import axios from 'axios'
+  import Timeline from 'vue-tweet-embed/timeline'
+  import M from 'materialize-css'
+
+  var loopCarousel = 0
+  function initCarousel () {
+    var elem = document.querySelector('.carousel')
+    // eslint-disable-next-line
+    if(elem != null){
+      var instance = M.Carousel.init(elem, {
+        fullWidth: true
+      })
+      if (loopCarousel === 0) {
+        loopCarousel = setInterval(function () {
+          instance.next()
+        }, 7000)
+      } else {
+        clearInterval(loopCarousel)
+        loopCarousel = setInterval(function () {
+          instance.next()
+        }, 5000)
+      }
+      elem.setAttribute('style', 'height : ' + elem.offsetWidth * 325 / 578 + 'px') // Calcul magique..
+    }
+  }
 
   export default {
     name: 'Home',
@@ -49,10 +80,17 @@
       Card,
       SideNav,
       Footer,
-      TitleBar
+      TitleBar,
+      Timeline
     },
     created () {
       document.title = 'Zthulj blog - Accueil'
+    },
+    mounted () {
+      initCarousel()
+    },
+    updated () {
+      initCarousel()
     },
     beforeMount () {
       axios.get(process.env.ROOT_API + 'api/public/blog/list').then(response => {
@@ -61,6 +99,10 @@
         .catch(e => {
 
         })
+      M.Carousel.init({
+        fullWidth: true,
+        indicators: true
+      })
     },
     data: function () {
       return {
@@ -98,5 +140,10 @@
         cursor: pointer;
     }
     .boldNormal{font-weight:bold;}
+
+    .carousel{
+        margin-top:20px;
+        height:250px !important;
+    }
 
 </style>

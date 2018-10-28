@@ -57,6 +57,12 @@
                                 <label for="title">Link</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Image card" id="imageCard" type="text" v-model="article.imageCard">
+                                <label for="title">Image Card (Lien vers l'image card)</label>
+                            </div>
+                        </div>
                         <div class="row no-margin-bottom">
                             <div class="input-field col s12">
                                 <textarea id="content" v-model="article.value.contentMD"></textarea>

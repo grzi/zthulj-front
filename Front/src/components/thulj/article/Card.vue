@@ -1,13 +1,20 @@
 <template>
-    <div class="col s12 m6 l4">
-        <div class="card white">
-            <div class="card-content">
-                <div class="badge blue-grey lighten-5">
-                    <font-awesome-icon v-if="icon!=''" :icon="icon" size="2x" :class="icon"/>
+    <div class="">
+        <div class="card horizontal">
+            <div class="card-image">
+                <img :src="card.imageCard">
+            </div>
+            <div class="card-stacked">
+                <div class="card-action" :class="icon">
+                    <router-link :to='"/" + card.category + "/" + card.link' >{{card.title}}</router-link>
                 </div>
-                <div class="card-title"><b><router-link :to='"/" + card.category + "/" + card.link'>{{card.title}}</router-link></b></div>
-                <p class="grey-text text-darken-3 light">{{card.description}}</p>
-                <div class="datePublish"><b>Publié le : </b> {{card.publishDate}}</div>
+                <div class="card-content">
+                    <p>{{card.description}}</p>
+                    <div class="badge blue-grey lighten-5">
+                        <font-awesome-icon v-if="icon!=''" :icon="icon" size="2x" :class="icon"/>
+                    </div>
+                    <div class="datePublish"><b>Publié le : </b> {{card.publishDate}}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -49,12 +56,18 @@
     .card .card-content{padding-top:12px !important;}
 
     .card-action {
-        text-align: right
+        text-align: left;
+        border-top:none;
+        border-bottom:1px solid rgba(160,160,160,0.2);
     }
+
+    .card-image{
+        width:186px;
+        overflow:hidden;}
 
     .badge {
         position: absolute;
-        left: 0;
+        right: 0;
         bottom: 0;
         padding: 10px;
         border-right:1px solid #DDD;
@@ -66,11 +79,11 @@
         text-align:right;
         position:absolute;
         bottom: 15px;
-        right:15px;
+        left:15px;
     }
-    .newspaper{color:#00a0d4;}
-    .code{color:#df0075;}
-    .utensils{color:#e23d27;}
+    .newspaper, .newspaper a{color:#00a0d4 !important;}
+    .code, .code a{color:#df0075 !important;}
+    .utensils, .utensils a{color:#e23d27 !important;}
     a{color:black;cursor:pointer;text-transform: uppercase;font-size:14px; font-weight:bold;}
     a:hover{text-decoration: underline;}
 </style>

@@ -9,6 +9,7 @@ public class Card implements Serializable {
     private String publishDate;
     private String category;
     private String link;
+    private String imageCard;
 
 
     public String getTitle() {
@@ -51,6 +52,14 @@ public class Card implements Serializable {
         this.link = link;
     }
 
+    public String getImageCard() {
+        return imageCard;
+    }
+
+    public void setImageCard(String imageCard) {
+        this.imageCard = imageCard;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,11 +69,12 @@ public class Card implements Serializable {
                 Objects.equals(getDescription(), card.getDescription()) &&
                 Objects.equals(getPublishDate(), card.getPublishDate()) &&
                 Objects.equals(getCategory(), card.getCategory()) &&
-                Objects.equals(getLink(), card.getLink());
+                Objects.equals(getLink(), card.getLink()) &&
+                Objects.equals(getImageCard(), card.getImageCard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getDescription(), getPublishDate(), getCategory(), getLink());
+        return Objects.hash(getTitle(), getDescription(), getPublishDate(), getCategory(), getLink(), getImageCard());
     }
 }

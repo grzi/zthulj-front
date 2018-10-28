@@ -83,6 +83,7 @@ public class BlogService {
         c.setPublishDate(fastDateFormat.format(e.getPublishDate()));
         c.setLink(e.getLink());
         c.setTitle(e.getTitle());
+        c.setImageCard(e.getImageCard());
         return c;
     }
 }

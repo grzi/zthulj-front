@@ -92,6 +92,7 @@
 
     .brand-logo {
         font-size: 18px;
+        font-weight:lighter;
     }
 
     .withMiddleNav {
