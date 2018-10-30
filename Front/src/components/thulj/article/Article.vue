@@ -12,7 +12,8 @@
       ArticleContent
     },
     beforeMount () {
-      axios.get(process.env.ROOT_API + 'api/public/blog' + this.$route.path).then(response => {
+      var splittedPath = this.$route.path.split('/')
+      axios.get(process.env.ROOT_API + 'api/public/blog/' + splittedPath[splittedPath.length - 1]).then(response => {
         this.article = response.data
         Prism.highlightAll(this.article.value.contentHtml)
         console.log(this.article.value.contentHtml)

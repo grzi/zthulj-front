@@ -1,7 +1,7 @@
 <template>
     <div>
         <SideNav :activeSection='"editPost"'></SideNav>
-        <TitleBar :sectionTitle='sectionTitle'></TitleBar>
+        <TitleBar :sectionTitle='sectionTitle' :admin="true"></TitleBar>
         <div class="content">
             <div class="container center">
                 <h4>Modification d'un article</h4>
@@ -40,6 +40,25 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="input-field col s12 left-align">
+                                Etat de l'article :
+                                <form action="#">
+                                    <p>
+                                        <label>
+                                            <input name="group1" value="true" type="radio" v-model="article.published"/>
+                                            <span>Publié</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="group1" value="false" type="radio" v-model="article.published"/>
+                                            <span>Brouillon</span>
+                                        </label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s12">
                                 <input placeholder="Titre de l'article" id="title" type="text" v-model="article.title">
                                 <label for="title">Titre</label>
@@ -47,7 +66,8 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input placeholder="Description de l'article" id="description" type="text" v-model="article.description">
+                                <input placeholder="Description de l'article" id="description" type="text"
+                                       v-model="article.description">
                                 <label for="title">Description</label>
                             </div>
                         </div>
@@ -114,11 +134,7 @@
       ArticleContent
     },
     beforeMount () {
-      if (typeof this.$route.params.link !== 'undefined') {
-        axios.get(process.env.ROOT_API + 'api/public/blog/full/' + this.$route.params.link).then(response => {
-          this.article = response.data
-        })
-      }
+      this.loadArticleFromRoute()
     },
     mounted () {
       M.updateTextFields()
@@ -129,6 +145,17 @@
       M.FormSelect.init(elems, null)
     },
     methods: {
+      loadArticleFromRoute: function () {
+        if (typeof this.$route.params.link !== 'undefined') {
+          axios.get(process.env.ROOT_API + 'api/secured/blog/full/' + this.$route.params.link, {
+            headers: {
+              'authorization': 'Bearer ' + this.$store.state.access_token
+            }
+          }).then(response => {
+            this.article = response.data
+          })
+        }
+      },
       convertAndPreview: function () {
         axios.post(process.env.ROOT_API + 'api/secured/md/convertToHtml',
                    {'text': this.article.value.contentMD},
@@ -145,7 +172,8 @@
           M.Modal.getInstance(document.getElementById('modal1')).open()
         }
         )
-          .catch(e => { })
+          .catch(e => {
+          })
       },
       saveArticle: function () {
         this.article.id = (this.article.id === null || this.article.id === '') ? '' : this.article.id
@@ -182,29 +210,47 @@
         messageinfo: '',
         messageColor: '',
         sectionTitle: 'zThulj > Editer Article',
-        article: {id: null, link: '', category: 'blog', title: '', value: {contentMD: '', contentHtml: ''}}
+        article: {id: null, link: '', category: 'blog', title: '', published: false, value: {contentMD: '', contentHtml: ''}}
+      }
+    },
+    watch: {
+      '$route' (newId, oldId) {
+        this.loadArticleFromRoute()
       }
     }
   }
 </script>
 
 <style scoped>
-    #content{background:white;min-height:300px;padding:15px;border:1px solid gray;text-align:left;}
+    #content {
+        background: white;
+        min-height: 300px;
+        padding: 15px;
+        border: 1px solid gray;
+        text-align: left;
+    }
 
-.forceDisplay{display:inline !important;}
-.icon_style{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 20px;
-    color: white;
-    cursor:pointer;
-}
+    .forceDisplay {
+        display: inline !important;
+    }
+
+    .icon_style {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
     .forceActive {
         -webkit-transform: translateY(-14px) scale(0.8);
         transform: translateY(-14px) scale(0.8);
         -webkit-transform-origin: 0 0;
         transform-origin: 0 0;
     }
-    #alert_box{display:none;}
+
+    #alert_box {
+        display: none;
+    }
 </style>

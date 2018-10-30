@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {router} from './utils/router-config.js'
+import router from './utils/router-config.js'
 import './../node_modules/materialize-css/dist/js/materialize.min.js'
 import './../node_modules/materialize-css/dist/css/materialize.min.css'
 
@@ -8,30 +8,12 @@ import store from './utils/store-pattern.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faCoffee,
-  faIdCard,
-  faUtensils,
-  faNewspaper,
-  faCode,
-  faHome,
-  faGamepad,
-  faHeart,
-  faBolt,
-  faLightbulb,
-  faQuestion,
-  faSearch,
-  faClock,
-  faUser,
-  faComment,
-  faPlusSquare,
-  faBold,
-  faItalic,
-  faLink,
-  faListOl,
-  faListUl,
-  faArrowsAlt,
-  faImage,
-  faEdit
+  faCoffee, faIdCard, faUtensils, faNewspaper,
+  faCode, faHome, faGamepad, faHeart, faBolt,
+  faLightbulb, faQuestion, faSearch, faClock,
+  faUser, faComment, faPlusSquare, faBold,
+  faItalic, faLink, faListOl, faListUl, faArrowsAlt,
+  faImage, faEdit
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 

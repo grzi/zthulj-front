@@ -22,6 +22,7 @@ public class Article implements Serializable {
     private String formattedDate;
     private String author;
     private String imageCard;
+    private boolean published;
 
     private BlogPost value;
 
@@ -121,12 +122,21 @@ public class Article implements Serializable {
         this.imageCard = imageCard;
     }
 
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Article)) return false;
         Article article = (Article) o;
-        return Objects.equals(getId(), article.getId()) &&
+        return isPublished() == article.isPublished() &&
+                Objects.equals(getId(), article.getId()) &&
                 Objects.equals(getLink(), article.getLink()) &&
                 Objects.equals(getDescription(), article.getDescription()) &&
                 Objects.equals(getTitle(), article.getTitle()) &&
@@ -141,6 +151,6 @@ public class Article implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLink(), getDescription(), getTitle(), getCategory(), getSubtitle(), getPublishDate(), getFormattedDate(), getAuthor(), getImageCard(), getValue());
+        return Objects.hash(getId(), getLink(), getDescription(), getTitle(), getCategory(), getSubtitle(), getPublishDate(), getFormattedDate(), getAuthor(), getImageCard(), isPublished(), getValue());
     }
 }

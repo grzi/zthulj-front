@@ -70,7 +70,7 @@
         right: 0;
         bottom: 0;
         padding: 10px;
-        border-right:1px solid #DDD;
+        border-left:1px solid #DDD;
         border-top:1px solid #DDD;
     }
 

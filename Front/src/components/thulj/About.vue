@@ -1,7 +1,7 @@
 <template>
     <div>
         <SideNav v-bind:activeSection='"cv"'></SideNav>
-        <TitleBar v-bind:sectionTitle='sectionTitle'></TitleBar>
+        <TitleBar v-bind:sectionTitle='sectionTitle' :admin="false"></TitleBar>
 
         <div class="content">
             <div class="container">

@@ -1,7 +1,7 @@
 <template>
     <div>
         <SideNav :activeSection='section'></SideNav>
-        <TitleBar :sectionTitle='section_title'></TitleBar>
+        <TitleBar :sectionTitle='section_title' :admin="false"></TitleBar>
         <div class="content">
             <div class="container center">
                 <Article v-if="$route.params.id != null " :key="$route.params.id"></Article>

@@ -28,7 +28,7 @@ public class BlogService {
     FastDateFormat fastDateFormat = FastDateFormat.getInstance("dd/MM/yyyy");
 
     public Article getArticleByLink(String link) {
-       Article a = blogRepository.findByLinkIgnoreCase(link);
+       Article a = blogRepository.findByLinkIgnoreCaseAndPublished(link, true);
        if(a != null){
             a.getValue().setContentHtml(mdService.convertMardownToHtml(a.getValue().getContentMD()));
             a.getValue().setContentMD(null); // Set to null to improve network data load
@@ -39,7 +39,7 @@ public class BlogService {
     }
 
     public Article getFullArticleByLink(String link) {
-        return blogRepository.findByLinkIgnoreCase(link);
+        return blogRepository.findByLink(link);
     }
 
     public Article saveArticle(Article article) throws BlogException {
@@ -60,23 +60,42 @@ public class BlogService {
         return blogRepository.save(article);
     }
 
-    public Collection<Article> search(String keywords) {
-        return blogRepository.findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCase(keywords, keywords);
+    public Collection<Card> search(String keywords) {
+        List<Article> articles = blogRepository
+                .findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCaseAndPublished(keywords, keywords, true);
+        List<Card> cards = new ArrayList<>();
+        articles.forEach(e -> cards.add(cardFromArticle(e)));
+        return cards;
+    }
+
+    public Collection<Card> searchAdmin(String keywords) {
+        List<Article> articles = blogRepository
+                .findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCase(keywords, keywords);
+        List<Card> cards = new ArrayList<>();
+        articles.forEach(e -> cards.add(cardFromArticle(e)));
+        return cards;
+
+    }
+
+    public Collection<Card> listAllPublished() {
+        List<Card> cards = new ArrayList<>();
+        blogRepository.findByPublished(true).forEach(e -> cards.add(cardFromArticle(e)));
+        return cards;
     }
 
     public Collection<Card> listAll() {
         List<Card> cards = new ArrayList<>();
-        blogRepository.findAll().forEach(e -> cards.add(CardFromArticle(e)));
+        blogRepository.findAll().forEach(e -> cards.add(cardFromArticle(e)));
         return cards;
     }
 
     public Collection<Card> listByCategory(String cat) {
         List<Card> cards = new ArrayList<>();
-        blogRepository.findByCategory(cat).forEach(e -> cards.add(CardFromArticle(e)));
+        blogRepository.findByCategoryAndPublished(cat, true).forEach(e -> cards.add(cardFromArticle(e)));
         return cards;
     }
 
-    private Card CardFromArticle(Article e) {
+    private Card cardFromArticle(Article e) {
         Card c = new Card();
         c.setCategory(e.getCategory());
         c.setDescription(e.getDescription());
@@ -84,7 +103,9 @@ public class BlogService {
         c.setLink(e.getLink());
         c.setTitle(e.getTitle());
         c.setImageCard(e.getImageCard());
+        c.setPublished(e.isPublished());
         return c;
     }
-}
 
+
+}

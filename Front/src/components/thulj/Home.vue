@@ -1,7 +1,7 @@
 <template>
     <div>
         <SideNav v-bind:activeSection='"home"'/>
-        <TitleBar v-bind:sectionTitle='sectionTitle'/>
+        <TitleBar v-bind:sectionTitle='sectionTitle' :admin="false"/>
         <div class="content">
             <div class="container">
 
@@ -54,9 +54,9 @@
 
   var loopCarousel = 0
   function initCarousel () {
-    var elem = document.querySelector('.carousel')
+    var elem = document.getElementById('carousel')
     // eslint-disable-next-line
-    if(elem != null){
+    if(elem != null && elem != 'undefined') {
       var instance = M.Carousel.init(elem, {
         fullWidth: true
       })
@@ -87,7 +87,6 @@
       document.title = 'Zthulj blog - Accueil'
     },
     mounted () {
-      initCarousel()
     },
     updated () {
       initCarousel()
@@ -99,10 +98,6 @@
         .catch(e => {
 
         })
-      M.Carousel.init({
-        fullWidth: true,
-        indicators: true
-      })
     },
     data: function () {
       return {

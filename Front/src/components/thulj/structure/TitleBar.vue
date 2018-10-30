@@ -12,7 +12,10 @@
                                type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass" v-on:focus="searchArticles">
                         <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseleave">
                             <div v-for="result in results" v-bind:key="result.title">
-                                <router-link @click.native="reset()" :to='"/" + result.category + "/" + result.link' class="linkSearch" >
+                                <router-link v-if="admin" @click.native="reset()" :to='"/edit/" + result.link' class="linkSearch" >
+                                    <span><b>{{result.category}}</b></span> > <span>{{result.title}}</span>
+                                </router-link>
+                                <router-link v-else @click.native="reset()" :to='"/" + result.category + "/" + result.link' class="linkSearch" >
                                     <span><b>{{result.category}}</b></span> > <span>{{result.title}}</span>
                                 </router-link>
                             </div>
@@ -28,7 +31,7 @@
   import axios from 'axios'
   export default {
     name: 'TitleBar',
-    props: ['sectionTitle', 'customClasses'],
+    props: ['sectionTitle', 'customClasses', 'admin'],
     methods: {
       reset: function () {
         this.resultsClass = ''
@@ -36,17 +39,36 @@
       },
       searchArticles: function () {
         if (this.keywords.length > 0) {
-          axios.get(process.env.ROOT_API + 'api/public/blog/search/' + this.keywords).then(response => {
-            this.results = response.data
-            if (this.results.length > 0) {
-              this.resultsClass = 'forceDisplay'
-            } else {
-              this.resultsClass = ''
-            }
-          })
-            .catch(e => {
-              this.resultsClass = ''
+          console.log('this admin' + this.admin)
+          if (this.admin === false) {
+            axios.get(process.env.ROOT_API + 'api/public/blog/search/' + this.keywords).then(response => {
+              this.results = response.data
+              if (this.results.length > 0) {
+                this.resultsClass = 'forceDisplay'
+              } else {
+                this.resultsClass = ''
+              }
             })
+              .catch(e => {
+                this.resultsClass = ''
+              })
+          } else {
+            axios.get(process.env.ROOT_API + 'api/secured/blog/searchAdmin/' + this.keywords, {
+              headers: {
+                'authorization': 'Bearer ' + this.$store.state.access_token
+              }
+            }).then(response => {
+              this.results = response.data
+              if (this.results.length > 0) {
+                this.resultsClass = 'forceDisplay'
+              } else {
+                this.resultsClass = ''
+              }
+            })
+              .catch(e => {
+                this.resultsClass = ''
+              })
+          }
         } else {
           this.resultsClass = ''
         }
