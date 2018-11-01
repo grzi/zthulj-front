@@ -2,8 +2,8 @@ package com.zthulj.blog.repository;
 
 import com.zthulj.blog.dto.Article;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface BlogRepository extends MongoRepository<Article,String> {
@@ -13,7 +13,8 @@ public interface BlogRepository extends MongoRepository<Article,String> {
 
     List<Article> findByPublished(boolean published);
 
-    List<Article> findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCaseAndPublished(String content, String content2, boolean published);
+    @Query("{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] } ] }")
+    List<Article> findPublishedByKeyword(String keyword);
 
     List<Article> findByCategoryAndPublished(String category, boolean published);
 

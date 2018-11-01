@@ -6,6 +6,9 @@ import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.repository.BlogRepository;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +27,9 @@ public class BlogService {
 
     @Autowired
     MardownService mdService;
+
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     FastDateFormat fastDateFormat = FastDateFormat.getInstance("dd/MM/yyyy");
 
@@ -61,8 +67,7 @@ public class BlogService {
     }
 
     public Collection<Card> search(String keywords) {
-        List<Article> articles = blogRepository
-                .findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCaseAndPublished(keywords, keywords, true);
+        List<Article> articles = blogRepository.findPublishedByKeyword(keywords);
         List<Card> cards = new ArrayList<>();
         articles.forEach(e -> cards.add(cardFromArticle(e)));
         return cards;

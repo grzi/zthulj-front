@@ -4,7 +4,7 @@
         <TitleBar :sectionTitle='section_title' :admin="false"></TitleBar>
         <div class="content">
             <div class="container center">
-                <Article v-if="$route.params.id != null " :key="$route.params.id"></Article>
+                <Article v-if="$route.params.id != null" :key="$route.params.id"></Article>
                 <div v-else class="row">
                     <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title" :class="'col s12 m6 l6'"></Card>
                 </div>
@@ -33,14 +33,21 @@
       TitleBar,
       Article
     },
+    methods: {
+      listArticles: function () {
+        if (this.$route.params.id === null || typeof this.$route.params.id === 'undefined') {
+          axios.get(process.env.ROOT_API + 'api/public/blog/list/' + this.section).then(response => {
+            this.articles = response.data
+          })
+            .catch(e => {
+
+            })
+        }
+      }
+    },
     mounted () {
       document.title = this.section_title
-      axios.get(process.env.ROOT_API + 'api/public/blog/list/' + this.section).then(response => {
-        this.articles = response.data
-      })
-        .catch(e => {
-
-        })
+      this.listArticles()
     },
     data: function () {
       return {
@@ -50,12 +57,7 @@
     },
     watch: {
       '$route' (newId, oldId) {
-        axios.get(process.env.ROOT_API + 'api/public/blog/list/' + this.section).then(response => {
-          this.articles = response.data
-        })
-          .catch(e => {
-
-          })
+        this.listArticles()
       }
     },
     props: ['section_title', 'section']

@@ -10,14 +10,17 @@
                         <font-awesome-icon icon="search" size="2x" class="iconInput" color="gray"/>
                         <input name="Search" ref="keyword" class="header-search-input z-depth-2" placeholder="Chercher. . ."
                                type="text" v-model='keywords' v-on:keyup="searchArticles" v-on:blur="resetSearchClass" v-on:focus="searchArticles">
-                        <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseleave">
-                            <div v-for="result in results" v-bind:key="result.title">
+                        <div class="searchResult" v-bind:class="resultsClass" v-on:mouseenter="mouseInResults=true" v-on:mouseleave="mouseLeave">
+                            <div v-for="result in results" v-bind:key="result.title" class="resultLink">
                                 <router-link v-if="admin" @click.native="reset()" :to='"/edit/" + result.link' class="linkSearch" >
                                     <span><b>{{result.category}}</b></span> > <span>{{result.title}}</span>
                                 </router-link>
                                 <router-link v-else @click.native="reset()" :to='"/" + result.category + "/" + result.link' class="linkSearch" >
                                     <span><b>{{result.category}}</b></span> > <span>{{result.title}}</span>
                                 </router-link>
+                            </div>
+                            <div class="seeAllResults">
+                                Voir tous les résultats
                             </div>
                         </div>
                     </div>
@@ -39,36 +42,28 @@
       },
       searchArticles: function () {
         if (this.keywords.length > 0) {
-          console.log('this admin' + this.admin)
-          if (this.admin === false) {
-            axios.get(process.env.ROOT_API + 'api/public/blog/search/' + this.keywords).then(response => {
-              this.results = response.data
-              if (this.results.length > 0) {
-                this.resultsClass = 'forceDisplay'
-              } else {
-                this.resultsClass = ''
-              }
-            })
-              .catch(e => {
-                this.resultsClass = ''
-              })
-          } else {
-            axios.get(process.env.ROOT_API + 'api/secured/blog/searchAdmin/' + this.keywords, {
+          let url = 'api/public/blog/search/'
+          let headers = {}
+          if (this.admin === true) {
+            url = 'api/secured/blog/searchAdmin/'
+            headers = {
               headers: {
                 'authorization': 'Bearer ' + this.$store.state.access_token
               }
-            }).then(response => {
-              this.results = response.data
-              if (this.results.length > 0) {
-                this.resultsClass = 'forceDisplay'
-              } else {
-                this.resultsClass = ''
-              }
-            })
-              .catch(e => {
-                this.resultsClass = ''
-              })
+            }
           }
+
+          axios.get(process.env.ROOT_API + url + this.keywords, headers).then(response => {
+            this.results = response.data
+            if (this.results.length > 0) {
+              this.resultsClass = 'forceDisplay'
+            } else {
+              this.resultsClass = ''
+            }
+          })
+            .catch(e => {
+              this.resultsClass = ''
+            })
         } else {
           this.resultsClass = ''
         }
@@ -78,7 +73,7 @@
           this.resultsClass = ''
         }
       },
-      mouseleave: function () {
+      mouseLeave: function () {
         this.mouseInResults = false
         this.$refs.keyword.focus()
       }
@@ -139,8 +134,11 @@
         transition: color 200ms ease;
     }
     .relative{position:relative;}
-    .searchResult{position:absolute;background:white;border:1px solid #EEE;margin-left: 65px;width:50%;color:#222;display:none;padding-left:10px;}
+    .searchResult{position:absolute;background:white;border:1px solid #EEE;margin-left: 65px;width:50%;color:#222;display:none;}
     .forceDisplay{display:block !important;}
     .linkSearch{color:#222;}
     .linkSearch:hover{text-decoration: underline;}
+    .resultLink{padding-left:10px;}
+    .seeAllResults{text-align:center;color:#999;border-top:1px solid #F3F3F3;}
+    .seeAllResults:hover{cursor:pointer;background:#F1F1F1;}
 </style>

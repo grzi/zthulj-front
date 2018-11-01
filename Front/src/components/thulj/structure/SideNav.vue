@@ -10,29 +10,35 @@
         <div class="divider logoDivider"></div>
       </li>
       <li :class='{active:activeSection=="home"}'><router-link to="/" title="Accueil">
-        <font-awesome-icon icon="home" size="2x"/>
+        <div><font-awesome-icon icon="home" size="2x"/></div>
+        <div class="labelsidenav">Accueil</div>
       </router-link></li>
       <li :class='{active:activeSection=="cv"}'><router-link to="/about" title="à propos">
         <font-awesome-icon icon="id-card" size="2x" color="#afcd37"/>
+        <div class="labelsidenav">À propos</div>
       </router-link></li>
       <li>
         <div class="divider"></div>
       </li>
       <li :class='{active:activeSection=="blog"}'><router-link to="/blog" title="Blog">
         <font-awesome-icon icon="newspaper" size="2x" color="#00a0d4"/>
+        <div class="labelsidenav">Blog</div>
       </router-link></li>
       <li :class='{active:activeSection=="projects"}'><router-link to="/projects" title="Projects">
         <font-awesome-icon icon="code" size="2x" color="#df0075"/>
+        <div class="labelsidenav">Projets</div>
       </router-link></li>
 
       <li :class='{active:activeSection=="receipes"}'>
         <router-link to="/recipes" title="Recettes">
           <font-awesome-icon icon="utensils" size="2x" color="#e23d27"/>
+          <div class="labelsidenav">Recettes</div>
         </router-link></li>
 
         <li :class='{active:activeSection=="editPost"}' v-if="this.access_token !== ''">
             <router-link to="/edit" title="Nouvel article">
-                <font-awesome-icon icon="plus-square" size="2x" color="#EEEEEE"/>
+                <font-awesome-icon icon="edit" size="2x" color="#EEEEEE"/>
+              <div class="labelsidenav">Editer article</div>
             </router-link></li>
 
     </ul>
@@ -96,14 +102,18 @@
   }
 
   .sidenav li a {
-    padding: 0;
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px 0;
+  }
+  .labelsidenav{
+    font-size:12px;
+    padding-top:3px;
+    font-weight: lighter;
   }
 
   .sidenav li a {
-    color: #cfd8dc
+    color: #cfd8dc;
+    line-height:20px;
   }
 
   .sidenav .divider {

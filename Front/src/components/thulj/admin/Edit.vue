@@ -4,7 +4,7 @@
         <TitleBar :sectionTitle='sectionTitle' :admin="true"></TitleBar>
         <div class="content">
             <div class="container center">
-                <h4>Modification d'un article</h4>
+                <h4>Edition d'un article</h4>
                 <div class="row" id="alert_box" v-bind:class="messageboxclass">
                     <div class="col s12 m12">
                         <div class="card" v-bind:class="messageColor">

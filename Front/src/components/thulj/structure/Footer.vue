@@ -14,7 +14,7 @@
                                                                                      href="https://www.linkedin.com/in/jeremythulliez/"
                                                                                      class="waves-effect waves-light"><img
                         src="../../../assets/linkedin.png" class="icon"/></a> <a target="blank"
-                                                                                 href="https://github.com/grzi/"
+                                                                                 href="https://github.com/zthulj/"
                                                                                  class="waves-effect waves-light"><img
                         src="../../../assets/github.png" class="icon"/></a>
                 </div>
