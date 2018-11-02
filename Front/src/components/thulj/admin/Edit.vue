@@ -22,6 +22,9 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="btn" v-on:click='reset()'>Nouvel article</div>
+                </div>
+                <div class="row">
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
@@ -145,6 +148,9 @@
       M.FormSelect.init(elems, null)
     },
     methods: {
+      reset: function () {
+        this.article = {id: null, link: '', category: 'blog', title: '', published: false, value: {contentMD: '', contentHtml: ''}}
+      },
       loadArticleFromRoute: function () {
         if (typeof this.$route.params.link !== 'undefined') {
           axios.get(process.env.ROOT_API + 'api/secured/blog/full/' + this.$route.params.link, {
@@ -215,6 +221,11 @@
     },
     watch: {
       '$route' (newId, oldId) {
+        // debug materializecss
+        let overlays = document.getElementsByClassName('sidenav-overlay')
+        for (var i = 0; i < overlays.length; i++) {
+          overlays[i].remove()
+        }
         this.loadArticleFromRoute()
       }
     }

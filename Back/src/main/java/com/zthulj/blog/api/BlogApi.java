@@ -9,6 +9,7 @@ import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,15 +37,15 @@ public class BlogApi {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value = SecurityConfig.PUBLIC_API + "/blog/search/{keywords}")
-    public Collection<?> search(@PathVariable("keywords") String keywords) {
-        return blogService.search(keywords);
+    @GetMapping(value = SecurityConfig.PUBLIC_API + "/blog/search/{keywords}/{page}")
+    public Page<Card> search(@PathVariable("keywords") String keywords, @PathVariable("page") int page) {
+        return blogService.search(keywords, page);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value = SecurityConfig.SECURED_API + "/blog/searchAdmin/{keywords}")
-    public Collection<?> searchAdmin(@PathVariable("keywords") String keywords) {
-        return blogService.searchAdmin(keywords);
+    @GetMapping(value = SecurityConfig.SECURED_API + "/blog/searchAdmin/{keywords}/{page}")
+    public Page<Card> searchAdmin(@PathVariable("keywords") String keywords, @PathVariable("page") int page ) {
+        return blogService.searchAdmin(keywords, page);
     }
 
     @CrossOrigin(origins = "*")

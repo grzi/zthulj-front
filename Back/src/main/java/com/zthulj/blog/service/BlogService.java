@@ -6,9 +6,10 @@ import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.repository.BlogRepository;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -66,20 +67,29 @@ public class BlogService {
         return blogRepository.save(article);
     }
 
-    public Collection<Card> search(String keywords) {
-        List<Article> articles = blogRepository.findPublishedByKeyword(keywords);
+    public Page<Card> search(String keywords, int page) {
+        PageRequest pRequest = PageRequest.of(page-1,4); // Pages starts at 0, on front I want to get 1
+        List<Article> articles = blogRepository.findPublishedByKeyword(keywords,pRequest );
+        int totalCount = blogRepository.countArticlePublishedByKeyword(keywords);
+
         List<Card> cards = new ArrayList<>();
         articles.forEach(e -> cards.add(cardFromArticle(e)));
-        return cards;
+
+        Page<Card> resultPage = new PageImpl<>(cards,pRequest,totalCount);
+        return resultPage;
     }
 
-    public Collection<Card> searchAdmin(String keywords) {
-        List<Article> articles = blogRepository
-                .findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCase(keywords, keywords);
+    public Page<Card> searchAdmin(String keywords, int page) {
+        PageRequest pRequest = PageRequest.of(page-1,4); // Pages starts at 0, on front I want to get 1
+
+        List<Article> articles = blogRepository.findByKeyword(keywords, pRequest);
+        int totalCount = blogRepository.countByKeyword(keywords);
+
         List<Card> cards = new ArrayList<>();
         articles.forEach(e -> cards.add(cardFromArticle(e)));
-        return cards;
 
+        Page<Card> resultPage = new PageImpl<>(cards,pRequest,totalCount);
+        return resultPage;
     }
 
     public Collection<Card> listAllPublished() {

@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
 import axios from 'axios'
+import M from 'materialize-css'
 
 import store from './store-pattern.js'
 Vue.use(VueRouter)
@@ -44,6 +45,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  M.Sidenav.init(document.getElementById('sidenav'))
   // Look at all routes
   router.options.routes.forEach((route) => {
     // If this is the current route and it's secure

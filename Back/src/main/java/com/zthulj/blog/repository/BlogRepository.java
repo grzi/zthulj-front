@@ -1,6 +1,7 @@
 package com.zthulj.blog.repository;
 
 import com.zthulj.blog.dto.Article;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -14,9 +15,18 @@ public interface BlogRepository extends MongoRepository<Article,String> {
     List<Article> findByPublished(boolean published);
 
     @Query("{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] } ] }")
-    List<Article> findPublishedByKeyword(String keyword);
+    List<Article> findPublishedByKeyword(String keyword, Pageable pageable);
+
+    @Query(value = "{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] } ] }", count=true)
+    int countArticlePublishedByKeyword(String keyword);
+
 
     List<Article> findByCategoryAndPublished(String category, boolean published);
 
-    List<Article> findByValue_ContentMDContainingIgnoreCaseOrTitleContainingIgnoreCase(String content, String title);
+    @Query("{ $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] }")
+    List<Article> findByKeyword(String keyword, Pageable pageable);
+
+    @Query(value= "{ $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] }", count = true)
+    int countByKeyword(String keyword);
+
 }

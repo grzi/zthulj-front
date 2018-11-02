@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="sidenav sidenav-fixed blue-grey darken-3">
+    <ul class="sidenav sidenav-fixed blue-grey darken-3 slide-out" id="sidenav">
       <li class="logoLi">
         <router-link to="/" class="logo">
           <img alt="Vue logo" src="../../../assets/jbandit-fox-75.png"/>
@@ -42,21 +42,20 @@
             </router-link></li>
 
     </ul>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <div data-target="sidenav" class="sidenav-trigger black-text menuIcon"><font-awesome-icon icon="bars" size="2x" color="#222"/></div>
   </div>
 </template>
 
 <script>
   import M from 'materialize-css'
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.sidenav')
-    /* var instances = */
-    M.Sidenav.init(elems)
-  })
   export default {
     name: 'SideNav',
     mounted () {
+      this.instance = M.Sidenav.init(document.getElementById('sidenav'))
+    },
+    beforeRouteEnter () {
+      M.Sidenav.init(document.getElementById('sidenav'))
     },
     props: {
       msg: String,
@@ -66,12 +65,25 @@
       access_token () {
         return this.$store.state.access_token
       }
+    },
+    data: function () {
+      return {
+        instance: {}
+      }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .menuIcon{
+    position:fixed;
+    z-index:500;
+    top:20px;
+    left:15px;
+    transform:none;
+    -webkit-transform: none;
+  }
   .sidenav {
     width: 105px;
   }
