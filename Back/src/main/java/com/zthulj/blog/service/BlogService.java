@@ -32,17 +32,20 @@ public class BlogService {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    @Autowired
+    TwitterService twitterService;
+
     FastDateFormat fastDateFormat = FastDateFormat.getInstance("dd/MM/yyyy");
 
     public Article getArticleByLink(String link) {
-       Article a = blogRepository.findByLinkIgnoreCaseAndPublished(link, true);
-       if(a != null){
+        Article a = blogRepository.findByLinkIgnoreCaseAndPublished(link, true);
+        if (a != null) {
             a.getValue().setContentHtml(mdService.convertMardownToHtml(a.getValue().getContentMD()));
             a.getValue().setContentMD(null); // Set to null to improve network data load
-           a.setFormattedDate(fastDateFormat.format(a.getPublishDate()));
-           a.setPublishDate(null); // Set to null to improve network data load
-       }
-       return a;
+            a.setFormattedDate(fastDateFormat.format(a.getPublishDate()));
+            a.setPublishDate(null); // Set to null to improve network data load
+        }
+        return a;
     }
 
     public Article getFullArticleByLink(String link) {
@@ -60,7 +63,7 @@ public class BlogService {
             throw new BlogException("Article with this link already exist");
         }
 
-        if(article.getPublishDate() == null){
+        if (article.getPublishDate() == null) {
             article.setPublishDate(Calendar.getInstance().getTime());
         }
 
@@ -68,19 +71,19 @@ public class BlogService {
     }
 
     public Page<Card> search(String keywords, int page) {
-        PageRequest pRequest = PageRequest.of(page-1,4); // Pages starts at 0, on front I want to get 1
-        List<Article> articles = blogRepository.findPublishedByKeyword(keywords,pRequest );
+        PageRequest pRequest = PageRequest.of(page - 1, 4); // Pages starts at 0, on front I want to get 1
+        List<Article> articles = blogRepository.findPublishedByKeyword(keywords, pRequest);
         int totalCount = blogRepository.countArticlePublishedByKeyword(keywords);
 
         List<Card> cards = new ArrayList<>();
         articles.forEach(e -> cards.add(cardFromArticle(e)));
 
-        Page<Card> resultPage = new PageImpl<>(cards,pRequest,totalCount);
+        Page<Card> resultPage = new PageImpl<>(cards, pRequest, totalCount);
         return resultPage;
     }
 
     public Page<Card> searchAdmin(String keywords, int page) {
-        PageRequest pRequest = PageRequest.of(page-1,4); // Pages starts at 0, on front I want to get 1
+        PageRequest pRequest = PageRequest.of(page - 1, 4); // Pages starts at 0, on front I want to get 1
 
         List<Article> articles = blogRepository.findByKeyword(keywords, pRequest);
         int totalCount = blogRepository.countByKeyword(keywords);
@@ -88,7 +91,7 @@ public class BlogService {
         List<Card> cards = new ArrayList<>();
         articles.forEach(e -> cards.add(cardFromArticle(e)));
 
-        Page<Card> resultPage = new PageImpl<>(cards,pRequest,totalCount);
+        Page<Card> resultPage = new PageImpl<>(cards, pRequest, totalCount);
         return resultPage;
     }
 
@@ -119,6 +122,7 @@ public class BlogService {
         c.setTitle(e.getTitle());
         c.setImageCard(e.getImageCard());
         c.setPublished(e.isPublished());
+        c.setAuthor(e.getAuthor());
         return c;
     }
 

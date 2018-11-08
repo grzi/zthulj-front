@@ -1,4 +1,4 @@
-package com.zthulj.blog.app;
+package com.zthulj.blog.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

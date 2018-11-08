@@ -14,6 +14,7 @@
 
 <style>
     body {
-        background: #f5f5f6;
+        background: #eceff1;
+        font-family: Lato, 'sans serif';
     }
 </style>

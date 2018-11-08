@@ -13,10 +13,6 @@
         <div><font-awesome-icon icon="home" size="2x"/></div>
         <div class="labelsidenav">Accueil</div>
       </router-link></li>
-      <li :class='{active:activeSection=="cv"}'><router-link to="/about" title="à propos">
-        <font-awesome-icon icon="id-card" size="2x" color="#afcd37"/>
-        <div class="labelsidenav">À propos</div>
-      </router-link></li>
       <li>
         <div class="divider"></div>
       </li>

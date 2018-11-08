@@ -1,4 +1,4 @@
-package com.zthulj.blog.app;
+package com.zthulj.blog.config;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

@@ -36,7 +36,7 @@
         <div id="searchmodal" class="modal">
             <div class="modalResultList row">
                 <div class="container">
-                    <h3>Résultats de recherche pour '{{this.lastSearch}}'</h3>
+                    <h5>Résultats de recherche pour '{{this.lastSearch}}'</h5>
                     <Card v-for="article in results.content" v-bind:card="article" v-bind:key="article.title"
                           :class="'col s12 m12 l12'"></Card>
                 </div>
@@ -273,6 +273,7 @@
         max-height: 80% !important;
         line-height: 20px;
         color: #111 !important;
+        background-color: #eceff1;
     }
 
     .linkSearch {

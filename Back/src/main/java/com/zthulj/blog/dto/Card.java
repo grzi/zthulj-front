@@ -10,6 +10,7 @@ public class Card implements Serializable {
     private String category;
     private String link;
     private String imageCard;
+    private String author;
     private boolean published;
 
 
@@ -69,22 +70,31 @@ public class Card implements Serializable {
         this.published = published;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Card)) return false;
         Card card = (Card) o;
-        return Objects.equals(getTitle(), card.getTitle()) &&
+        return getPublished() == card.getPublished() &&
+                Objects.equals(getTitle(), card.getTitle()) &&
                 Objects.equals(getDescription(), card.getDescription()) &&
                 Objects.equals(getPublishDate(), card.getPublishDate()) &&
                 Objects.equals(getCategory(), card.getCategory()) &&
                 Objects.equals(getLink(), card.getLink()) &&
                 Objects.equals(getImageCard(), card.getImageCard()) &&
-                Objects.equals(getPublished(), card.getPublished());
+                Objects.equals(getAuthor(), card.getAuthor());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getDescription(), getPublishDate(), getCategory(), getLink(), getImageCard(), getPublished());
+        return Objects.hash(getTitle(), getDescription(), getPublishDate(), getCategory(), getLink(), getImageCard(), getAuthor(), getPublished());
     }
 }

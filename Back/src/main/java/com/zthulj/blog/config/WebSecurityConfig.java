@@ -1,4 +1,4 @@
-package com.zthulj.blog.app;
+package com.zthulj.blog.config;
 
 import com.zthulj.blog.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,26 +7,11 @@
 
                 <div class="row">
                     <div>
-                        <div class="title-home">Bienvenue, voyageur.</div>
+                        <div class="title-home"><b>Articles</b></div>
                     </div>
                     <div class="row light margin-top-20">
                         <div class="col s12 m12 l8">
-                            <div>Je suis <span class="boldNormal">Jérémy</span>, consultant Zenika <span class="boldNormal">passionné</span> ! </div>
-                            <div class="margin-top-20">Je ne savais pas quoi faire alors j'ai fait ce blog !</div>
-                            <div class="margin-top-20">Je le voyais comme un moyen de tester vue.js, et de me construire un référentiel perso pour mes notes.
-                                Il présente mes <span class="boldNormal">pensées</span> et <span class="boldNormal">capitalisations</span> sur divers sujets (tech, projets, cuisine, sport...
-                            toutes les choses que je souhaite écrire)
-                            </div>
-                            <div class="subTitle-home margin-top-20">
-                                Derniers articles
-                            </div>
-                            <div id="carousel" class="carousel carousel-slider center">
-                                <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title" class="carousel-item"/>
-                            </div>
-
-                            <div class="light margin-top-20">
-                                <b>Mes écrits n'engagent que moi.</b>
-                            </div>
+                            <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title" class="carousel-item"/>
                         </div>
                         <div class="col s12 m12 l4">
                             <Timeline :id="'zThulj'" :sourceType="'profile'" :options="{ tweetLimit: '2' }"/>
@@ -110,6 +95,7 @@
 </script>
 
 <style scoped>
+
     .margin-top-20 {
         margin-top: 20px;
     }
@@ -122,8 +108,9 @@
 
     .subTitle-home{
         font-weight: lighter;
-        font-size:24px;
+        font-size:28px;
         color:#444;
+        margin-bottom:10px;
     }
 
     .decaleLiens a {

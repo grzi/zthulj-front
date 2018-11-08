@@ -1,4 +1,4 @@
-package com.zthulj.blog.app;
+package com.zthulj.blog.config;
 
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Configuration;
