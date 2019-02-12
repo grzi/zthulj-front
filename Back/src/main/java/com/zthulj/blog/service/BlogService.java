@@ -59,7 +59,7 @@ public class BlogService {
         // Permet la génération d'un nouvel id (ne marche pas si on reçoit un id 'vide'
         article.setId(article.getId() != null && article.getId().isEmpty() ? null : article.getId());
         if (null == article.getId()
-                && getArticleByLink(article.getLink()) != null) {
+                && getFullArticleByLink(article.getLink()) != null) {
             throw new BlogException("Article with this link already exist");
         }
 

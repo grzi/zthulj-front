@@ -7,14 +7,12 @@
 
                 <div class="row">
                     <div>
-                        <div class="title-home"><b>Articles</b></div>
+                        <div class="title-home"><b>home # _</b></div>
                     </div>
                     <div class="row light margin-top-20">
-                        <div class="col s12 m12 l8">
+                        <div class="col hide-on-small-and-down m1 l1"></div>
+                        <div class="col s12 m10 l10">
                             <Card v-for="card in cards" v-bind:card="card" v-bind:key="card.title" class="carousel-item"/>
-                        </div>
-                        <div class="col s12 m12 l4">
-                            <Timeline :id="'zThulj'" :sourceType="'profile'" :options="{ tweetLimit: '2' }"/>
                         </div>
                     </div>
                     <div class="row margin-top-20">
@@ -95,13 +93,14 @@
 </script>
 
 <style scoped>
+    .content{margin-top: 70px;
+        min-height: 600px;}
 
     .margin-top-20 {
         margin-top: 20px;
     }
 
     .title-home{
-        font-weight: lighter;
         font-size:32px;
         color:#444;
     }

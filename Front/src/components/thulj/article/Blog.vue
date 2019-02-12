@@ -3,13 +3,21 @@
         <SideNav :activeSection='section'></SideNav>
         <TitleBar :sectionTitle='section_title' :admin="false"></TitleBar>
         <div class="content">
-            <div class="container center">
-                <Article v-if="$route.params.id != null" :key="$route.params.id"></Article>
-                <div v-else class="row">
-                    <Card v-for="article in articles" v-bind:card="article" v-bind:key="article.title" :class="'col s12 m12 l12'"></Card>
+            <div class="container">
+                    <Article v-if="$route.params.id != null" :key="$route.params.id"></Article>
+                    <div v-else class="row">
+                        <div class="row">
+                            <div>
+                                <div class="title-home"><b>{{section}} # _</b></div>
+                            </div>
+                        </div>
+                        <div v-for="article in articles" v-bind:key="article.title" class="row">
+                            <div class="col hide-on-small-and-down m1 l1"></div>
+                            <Card v-bind:card="article"
+                                  :class="'col s12 m10 l10'"></Card>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
         </div>
 
         <Footer></Footer>
@@ -51,8 +59,7 @@
     },
     data: function () {
       return {
-        articles: [
-        ]
+        articles: []
       }
     },
     watch: {
@@ -65,6 +72,11 @@
 </script>
 
 <style scoped>
+    .title-home {
+        font-size: 32px;
+        color: #444;
+    }
+
     .articleLight:hover div {
         background-color: #F2F2F2 !important;
         cursor: pointer;
@@ -80,10 +92,6 @@
         padding-bottom: 10px;
         padding-left: 20px;
         border-bottom: 1px solid #DDD !important;
-    }
-
-    .container {
-        width: 95%;
     }
 
     .withMiddleNav {

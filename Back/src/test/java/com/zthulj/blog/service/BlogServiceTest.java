@@ -1,7 +1,7 @@
 package com.zthulj.blog.service;
 
 import com.zthulj.blog.dto.Article;
-import com.zthulj.blog.dto.BlogPost;
+import com.zthulj.blog.dto.MarkdownContent;
 import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.repository.BlogRepository;
 import org.junit.Before;
@@ -32,13 +32,13 @@ public class BlogServiceTest {
     @Test
     public void test_saveArticle_AlreadyExists(){
         String commonLink = "LINK";
-        when(repository.findByLinkIgnoreCase(commonLink)).thenReturn(new Article());
+        when(repository.findByLink("LINK")).thenReturn(new Article());
 
         Article a = new Article();
-        a.setLink(commonLink);
-        a.setValue(new BlogPost());
-        a.getValue().setTitle("It's a title");
-        a.getValue().setContent("This is a content");
+        a.setLink("LINK");
+        a.setValue(new MarkdownContent());
+        a.setTitle("It's a title");
+        a.getValue().setContentMD("This is a content");
 
         Executable codeToTest = () -> { blogService.saveArticle(a); };
         assertThrows(BlogException.class, codeToTest, "Article with this link already exist");

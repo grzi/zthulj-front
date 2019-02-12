@@ -1,17 +1,13 @@
 <template>
     <router-link :to='"/" + card.category + "/" + card.link'>
         <div class="articleCard">
-
-            <div class="headerImg">
-                <img :src="card.imageCard"/>
-            </div>
             <div class="padding">
-                <div class=articleCardContext>De <span class="important">zThulj</span> le <span class="important">{{card.publishDate}}</span>
-                </div>
                 <div class="articleCardContent">
                     <div class="articleCardInfos">
                         <div class="articleCardTitle">{{card.title}}</div>
                         <div class="articleCardDescription">{{card.description}}
+                        </div>
+                        <div class=articleCardContext>De <span class="important">zThulj</span> le <span class="important">{{card.publishDate}}</span>
                         </div>
                     </div>
                     <div class="clearboth"></div>
@@ -56,12 +52,13 @@
 <style scoped>
 
     .important{
-        color:#df0075;
+        color:#333;
     }
 
     .padding{
         padding-left: 20px;
         padding-right: 20px;
+        padding:30px;
     }
 
     .headerImg {
@@ -83,7 +80,7 @@
     }
 
     .articleCardInfos {
-        width: auto;
+        width:100%;
     }
 
     .articleCardImage {
@@ -102,11 +99,10 @@
     .articleCardTitle {
         text-align: left;
         font-size: 20px;
-        margin-bottom: 5px;
-        font-weight: bold;
         text-transform: none;
-        font-weight: 500;
-        color: #111;
+        font-weight: 700;
+        color: #5b8bd8;
+        text-decoration: underline;
     }
 
     .articleCardDescription {
@@ -114,6 +110,7 @@
         font-size: 14px;
         font-weight: 300 !important;
         color: #222;
+        margin-top:10px;
         text-transform: none !important;
     }
 
@@ -128,6 +125,7 @@
         text-align: left;
         font-weight: 300 !important;
         text-transform: none;
+        text-align:right;
     }
 
     .articleCard {

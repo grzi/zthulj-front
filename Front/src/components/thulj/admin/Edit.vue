@@ -215,7 +215,7 @@
         messageboxclass: '',
         messageinfo: '',
         messageColor: '',
-        sectionTitle: 'zThulj > Editer Article',
+        sectionTitle: 'zThulj > Edite',
         article: {id: null, link: '', category: 'blog', title: '', published: false, value: {contentMD: '', contentHtml: ''}}
       }
     },

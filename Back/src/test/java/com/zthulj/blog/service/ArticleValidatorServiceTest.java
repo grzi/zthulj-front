@@ -1,7 +1,7 @@
 package com.zthulj.blog.service;
 
 import com.zthulj.blog.dto.Article;
-import com.zthulj.blog.dto.BlogPost;
+import com.zthulj.blog.dto.MarkdownContent;
 import com.zthulj.blog.exception.BlogException;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class ArticleValidatorServiceTest {
     @Test
     public void returnErrorWhenLinkIsNull() {
         Article a = new Article();
-        a.setValue(new BlogPost());
+        a.setValue(new MarkdownContent());
 
         Executable codeToTest = () -> {
             articleValidator.Validate(a);
@@ -38,7 +38,7 @@ public class ArticleValidatorServiceTest {
     public void returnErrorWhenLinkIsEmpty() {
         Article a = new Article();
         a.setLink("");
-        a.setValue(new BlogPost());
+        a.setValue(new MarkdownContent());
 
         Executable codeToTest = () -> {
             articleValidator.Validate(a);
@@ -63,8 +63,8 @@ public class ArticleValidatorServiceTest {
     public void returnErrorWhenTitleIsNull() {
         Article a = new Article();
         a.setLink("OK");
-        a.setValue(new BlogPost());
-        a.getValue().setTitle("");
+        a.setValue(new MarkdownContent());
+        a.setTitle("");
 
         Executable codeToTest = () -> {
             articleValidator.Validate(a);
@@ -77,8 +77,8 @@ public class ArticleValidatorServiceTest {
     public void returnErrorWhenContentIsNull() {
         Article a = new Article();
         a.setLink("OK");
-        a.setValue(new BlogPost());
-        a.getValue().setTitle("It's a title");
+        a.setValue(new MarkdownContent());
+        a.setTitle("It's a title");
 
         Executable codeToTest = () -> {
             articleValidator.Validate(a);
@@ -91,9 +91,9 @@ public class ArticleValidatorServiceTest {
     public void returnErrorWhenContentIsEmpty() {
         Article a = new Article();
         a.setLink("OK");
-        a.setValue(new BlogPost());
-        a.getValue().setTitle("It's a title");
-        a.getValue().setContent("");
+        a.setValue(new MarkdownContent());
+        a.setTitle("It's a title");
+        a.getValue().setContentMD("");
         Executable codeToTest = () -> {
             articleValidator.Validate(a);
         };
@@ -105,9 +105,9 @@ public class ArticleValidatorServiceTest {
     public void NoExceptionWhenArticleIsOK() {
         Article a = new Article();
         a.setLink("OK");
-        a.setValue(new BlogPost());
-        a.getValue().setTitle("It's a title");
-        a.getValue().setContent("This is a content");
+        a.setValue(new MarkdownContent());
+        a.setTitle("It's a title");
+        a.getValue().setContentMD("This is a content");
         Executable codeToTest = () -> {
             articleValidator.Validate(a);
         };

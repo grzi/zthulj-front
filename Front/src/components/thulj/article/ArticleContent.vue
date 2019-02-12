@@ -1,6 +1,6 @@
 <template>
     <div class="article">
-        <div class="title">{{article.title}}</div>
+        <div class="title center">{{article.title}}</div>
         <div class="infosArticles container center">
             <span class="minititle"> <font-awesome-icon icon="clock"/> <span class="val">{{article.formattedDate}}</span></span>
             <span class="minititle"> <font-awesome-icon icon="user"/><span class="val">zThulj</span></span>

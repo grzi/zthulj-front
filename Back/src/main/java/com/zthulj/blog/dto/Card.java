@@ -1,8 +1,15 @@
 package com.zthulj.blog.dto;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Card implements Serializable {
     private String title;
     private String description;
@@ -12,89 +19,4 @@ public class Card implements Serializable {
     private String imageCard;
     private String author;
     private boolean published;
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getImageCard() {
-        return imageCard;
-    }
-
-    public void setImageCard(String imageCard) {
-        this.imageCard = imageCard;
-    }
-
-    public boolean getPublished() {
-        return published;
-    }
-
-    public void setPublished(boolean published) {
-        this.published = published;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Card)) return false;
-        Card card = (Card) o;
-        return getPublished() == card.getPublished() &&
-                Objects.equals(getTitle(), card.getTitle()) &&
-                Objects.equals(getDescription(), card.getDescription()) &&
-                Objects.equals(getPublishDate(), card.getPublishDate()) &&
-                Objects.equals(getCategory(), card.getCategory()) &&
-                Objects.equals(getLink(), card.getLink()) &&
-                Objects.equals(getImageCard(), card.getImageCard()) &&
-                Objects.equals(getAuthor(), card.getAuthor());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTitle(), getDescription(), getPublishDate(), getCategory(), getLink(), getImageCard(), getAuthor(), getPublished());
-    }
 }
