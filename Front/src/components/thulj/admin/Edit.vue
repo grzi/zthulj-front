@@ -206,8 +206,25 @@
             window.scrollTo(0, 0)
           })
       },
-      paletteChange: function (md) {
-        this.article.value.contentMD += md
+      paletteChange: function (mdStart, mdEnd) {
+        var ta = document.getElementById('content')
+        if (ta.selectionStart || ta.selectionStart === '0') {
+          var startPos = ta.selectionStart
+          var endPos = ta.selectionEnd
+          if (ta.selectionStart !== ta.selectionEnd) {
+            this.article.value.contentMD = this.article.value.contentMD.substring(0, startPos) +
+              mdStart +
+              this.article.value.contentMD.substring(startPos, endPos) +
+              mdEnd +
+              this.article.value.contentMD.substring(endPos, this.article.value.contentMD.length)
+          } else {
+            this.article.value.contentMD = this.article.value.contentMD.substring(0, startPos) +
+              mdStart + 'Some Text' + mdEnd +
+              this.article.value.contentMD.substring(endPos, this.article.value.contentMD.length)
+          }
+        } else {
+          this.article.value.contentMD += mdStart + 'Some Text' + mdEnd
+        }
       }
     },
     data: function () {
@@ -215,7 +232,7 @@
         messageboxclass: '',
         messageinfo: '',
         messageColor: '',
-        sectionTitle: 'zThulj > Edite',
+        sectionTitle: 'zThulj > Editer',
         article: {id: null, link: '', category: 'blog', title: '', published: false, value: {contentMD: '', contentHtml: ''}}
       }
     },

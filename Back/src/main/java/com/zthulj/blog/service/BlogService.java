@@ -12,10 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BlogService {
@@ -63,8 +60,9 @@ public class BlogService {
             throw new BlogException("Article with this link already exist");
         }
 
-        if (article.getPublishDate() == null) {
+        if (article.getPublishDate() == null && article.isPublished()) {
             article.setPublishDate(Calendar.getInstance().getTime());
+            twitterService.sendTweet(article);
         }
 
         return blogRepository.save(article);
@@ -73,21 +71,24 @@ public class BlogService {
     public Page<Card> search(String keywords, int page) {
         PageRequest pRequest = PageRequest.of(page - 1, 4); // Pages starts at 0, on front I want to get 1
         List<Article> articles = blogRepository.findPublishedByKeyword(keywords, pRequest);
+        articles.sort(Comparator.comparing(Article::getPublishDate).reversed());
         int totalCount = blogRepository.countArticlePublishedByKeyword(keywords);
 
-        List<Card> cards = new ArrayList<>();
-        articles.forEach(e -> cards.add(cardFromArticle(e)));
-
-        Page<Card> resultPage = new PageImpl<>(cards, pRequest, totalCount);
-        return resultPage;
+        return getCards(pRequest, articles, totalCount);
     }
 
     public Page<Card> searchAdmin(String keywords, int page) {
         PageRequest pRequest = PageRequest.of(page - 1, 4); // Pages starts at 0, on front I want to get 1
 
         List<Article> articles = blogRepository.findByKeyword(keywords, pRequest);
+        articles.sort(Comparator.comparing(Article::getPublishDate).reversed());
+
         int totalCount = blogRepository.countByKeyword(keywords);
 
+        return getCards(pRequest, articles, totalCount);
+    }
+
+    private Page<Card> getCards(PageRequest pRequest, List<Article> articles, int totalCount) {
         List<Card> cards = new ArrayList<>();
         articles.forEach(e -> cards.add(cardFromArticle(e)));
 
@@ -97,19 +98,25 @@ public class BlogService {
 
     public Collection<Card> listAllPublished() {
         List<Card> cards = new ArrayList<>();
-        blogRepository.findByPublished(true).forEach(e -> cards.add(cardFromArticle(e)));
+        List<Article> articles = blogRepository.findByPublished(true);
+        articles.sort(Comparator.comparing(Article::getPublishDate).reversed());
+        articles.forEach(e -> cards.add(cardFromArticle(e)));
         return cards;
     }
 
     public Collection<Card> listAll() {
         List<Card> cards = new ArrayList<>();
-        blogRepository.findAll().forEach(e -> cards.add(cardFromArticle(e)));
+        List<Article> articles = blogRepository.findAll();
+        articles.sort(Comparator.comparing(Article::getPublishDate).reversed());
+        articles.forEach(e -> cards.add(cardFromArticle(e)));
         return cards;
     }
 
     public Collection<Card> listByCategory(String cat) {
         List<Card> cards = new ArrayList<>();
-        blogRepository.findByCategoryAndPublished(cat, true).forEach(e -> cards.add(cardFromArticle(e)));
+        List<Article> articles = blogRepository.findByCategoryAndPublished(cat, true);
+        articles.sort(Comparator.comparing(Article::getPublishDate).reversed());
+        articles.forEach(e -> cards.add(cardFromArticle(e)));
         return cards;
     }
 

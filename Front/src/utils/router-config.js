@@ -67,7 +67,7 @@ const router = new VueRouter({
     {
       path: '/edit/:link',
       component: Edit,
-      eta: {
+      meta: {
         requiresAuth: true,
         metaTags: [
           {

@@ -162,7 +162,9 @@
     nav {
         position: fixed;
         top: 0;
-        z-index: 50
+        z-index: 50;
+        line-height: 64px !important;
+        height:64px !important;
     }
 
     @media only screen and (min-width: 992px) {

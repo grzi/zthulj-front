@@ -8,7 +8,7 @@
                         En cas de besoin, vous pouvez toujours me retrouver <br/>sur ces
                         r&eacute;seaux sociaux :
                     </p>
-                    <a target="blank" href="https://www.facebook.com/thulliezj"
+                    <a target="blank" href="https://www.twitter.com/zthulj"
                        class="waves-effect waves-light"><img
                             src="../../../assets/facebook.png" class="icon"/></a> <a target="blank"
                                                                                      href="https://www.linkedin.com/in/jeremythulliez/"
