@@ -14,19 +14,18 @@ public interface BlogRepository extends MongoRepository<Article,String> {
 
     List<Article> findByPublished(boolean published);
 
-    @Query("{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] } ] }")
+    @Query("{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*', $options: 'i'} }, { title: {$regex : '.*?0.*', $options: 'i'} } ] } ] }")
     List<Article> findPublishedByKeyword(String keyword, Pageable pageable);
 
-    @Query(value = "{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] } ] }", count=true)
+    @Query(value = "{ $and: [ { published: true }, { $or: [ { 'value.contentMD': {$regex : '.*?0.*', $options: 'i'} }, { title: {$regex : '.*?0.*', $options: 'i'} } ] } ] }", count=true)
     int countArticlePublishedByKeyword(String keyword);
-
 
     List<Article> findByCategoryAndPublished(String category, boolean published);
 
-    @Query("{ $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] }")
+    @Query("{ $or: [ { 'value.contentMD': {$regex : '.*?0.*', $options: 'i'} }, { title: {$regex : '.*?0.*', $options: 'i'} } ] }")
     List<Article> findByKeyword(String keyword, Pageable pageable);
 
-    @Query(value= "{ $or: [ { 'value.contentMD': {$regex : '.*?0.*'} }, { title: {$regex : '.*?0.*'} } ] }", count = true)
+    @Query(value= "{ $or: [ { 'value.contentMD': {$regex : '.*?0.*', $options: 'i'} }, { title: {$regex : '.*?0.*', $options: 'i'} } ] }", count = true)
     int countByKeyword(String keyword);
 
 }

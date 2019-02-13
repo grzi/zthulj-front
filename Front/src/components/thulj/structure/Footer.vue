@@ -21,8 +21,6 @@
                 <div class="col l6 s12">
                     <h5 class="white-text">Liens utiles</h5>
                     <ul>
-                        <li><a class="white-text" href="/cv">Curriculum Vitae</a></li>
-                        <li><a class="white-text" href="/blog">Blog</a></li>
                         <li><Login></Login></li>
                     </ul>
                 </div>

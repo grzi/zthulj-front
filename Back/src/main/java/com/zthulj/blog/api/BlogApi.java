@@ -2,9 +2,11 @@ package com.zthulj.blog.api;
 
 import com.zthulj.blog.dto.Article;
 import com.zthulj.blog.dto.Card;
+import com.zthulj.blog.dto.Image;
 import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.referential.SecurityConfig;
 import com.zthulj.blog.service.BlogService;
+import com.zthulj.blog.service.StorageService;
 import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +15,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 public class BlogApi {
@@ -23,6 +27,9 @@ public class BlogApi {
 
     @Autowired
     BlogService blogService;
+
+    @Autowired
+    StorageService storageService;
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = SecurityConfig.PUBLIC_API + "/blog/{link}")
@@ -68,5 +75,12 @@ public class BlogApi {
         } catch (BlogException e) {
             return new ResponseEntity<>(new Pair<>("error : ", "Error while saving the article : " + e.getMessage()), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = SecurityConfig.SECURED_API + "/blog/uploadFile")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file){
+        storageService.storeImage(file);
+        return new ResponseEntity<Boolean>(HttpStatus.ACCEPTED);
     }
 }

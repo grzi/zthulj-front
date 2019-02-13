@@ -222,6 +222,7 @@
         margin-left: 65px !important;
         padding-left: 8px !important;
         font-size: 14px !important;
+        font-family:  'Source Code Pro', monospace;
         width: 100%;
     }
 

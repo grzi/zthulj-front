@@ -8,7 +8,7 @@
                     <div v-else class="row">
                         <div class="row">
                             <div>
-                                <div class="title-home"><b>{{section}} # _</b></div>
+                                <div class="title-home"><b>{{section}} $ _</b></div>
                             </div>
                         </div>
                         <div v-for="article in articles" v-bind:key="article.title" class="row">

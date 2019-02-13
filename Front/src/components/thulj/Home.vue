@@ -7,7 +7,7 @@
 
                 <div class="row">
                     <div>
-                        <div class="title-home"><b>home # _</b></div>
+                        <div class="title-home"><b>home $ _</b></div>
                     </div>
                     <div class="row light margin-top-20">
                         <div class="col hide-on-small-and-down m1 l1"></div>

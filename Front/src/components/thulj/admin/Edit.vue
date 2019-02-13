@@ -54,7 +54,8 @@
                                     </p>
                                     <p>
                                         <label>
-                                            <input name="group1" value="false" type="radio" v-model="article.published"/>
+                                            <input name="group1" value="false" type="radio"
+                                                   v-model="article.published"/>
                                             <span>Brouillon</span>
                                         </label>
                                     </p>
@@ -86,15 +87,15 @@
                                 <label for="title">Image Card (Lien vers l'image card)</label>
                             </div>
                         </div>
-                        <div class="row no-margin-bottom">
-                            <div class="input-field col s12">
-                                <textarea id="content" v-model="article.value.contentMD"></textarea>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <MarkdownPalette v-on:paletteChange="paletteChange"></MarkdownPalette>
+                                <MarkdownPalette :val='article.value.contentMD'
+                                                 v-model="article.value.contentMD"></MarkdownPalette>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="btn" v-on:click='uploadFile()'>Upload File</div>
                         </div>
                         <div class="row">
                             <div class="btn" v-on:click='convertAndPreview()'>Preview</div>
@@ -108,6 +109,29 @@
                             </div>
                         </div>
 
+                        <div id="modal2" class="modal">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <h3>Uploader un fichier</h3>
+                                        <form action="#" class="col s12">
+                                            <div class="file-field input-field">
+                                                <div class="btn">
+                                                    <span>File</span>
+                                                    <input type="file">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text">
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="row">
+                                            <div class="btn" v-on:click='uploadRequest()'>Uploader</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -144,12 +168,21 @@
       M.textareaAutoResize(document.getElementById('content'))
       var elem = document.getElementById('modal1')
       M.Modal.init(elem, null)
+      var elem2 = document.getElementById('modal2')
+      M.Modal.init(elem2, null)
       var elems = document.querySelectorAll('select')
       M.FormSelect.init(elems, null)
     },
     methods: {
       reset: function () {
-        this.article = {id: null, link: '', category: 'blog', title: '', published: false, value: {contentMD: '', contentHtml: ''}}
+        this.article = {
+          id: null,
+          link: '',
+          category: 'blog',
+          title: '',
+          published: false,
+          value: {contentMD: '', contentHtml: ''}
+        }
       },
       loadArticleFromRoute: function () {
         if (typeof this.$route.params.link !== 'undefined') {
@@ -206,25 +239,19 @@
             window.scrollTo(0, 0)
           })
       },
-      paletteChange: function (mdStart, mdEnd) {
-        var ta = document.getElementById('content')
-        if (ta.selectionStart || ta.selectionStart === '0') {
-          var startPos = ta.selectionStart
-          var endPos = ta.selectionEnd
-          if (ta.selectionStart !== ta.selectionEnd) {
-            this.article.value.contentMD = this.article.value.contentMD.substring(0, startPos) +
-              mdStart +
-              this.article.value.contentMD.substring(startPos, endPos) +
-              mdEnd +
-              this.article.value.contentMD.substring(endPos, this.article.value.contentMD.length)
-          } else {
-            this.article.value.contentMD = this.article.value.contentMD.substring(0, startPos) +
-              mdStart + 'Some Text' + mdEnd +
-              this.article.value.contentMD.substring(endPos, this.article.value.contentMD.length)
-          }
-        } else {
-          this.article.value.contentMD += mdStart + 'Some Text' + mdEnd
-        }
+      uploadFile () {
+        M.Modal.getInstance(document.getElementById('modal2')).open()
+      },
+      uploadRequest () {
+        const formData = new FormData();
+        //TODO : formData.append('file', );
+        formData.append('id', 7878);
+        axios.post('/api/uploadFile', formData)
+          .then(function (result) {
+            console.log(result)
+          }, function (error) {
+            console.log(error)
+          })
       }
     },
     data: function () {
@@ -233,7 +260,14 @@
         messageinfo: '',
         messageColor: '',
         sectionTitle: 'zThulj > Editer',
-        article: {id: null, link: '', category: 'blog', title: '', published: false, value: {contentMD: '', contentHtml: ''}}
+        article: {
+          id: null,
+          link: '',
+          category: 'blog',
+          title: '',
+          published: false,
+          value: {contentMD: '', contentHtml: ''}
+        }
       }
     },
     watch: {
@@ -250,13 +284,6 @@
 </script>
 
 <style scoped>
-    #content {
-        background: white;
-        min-height: 300px;
-        padding: 15px;
-        border: 1px solid gray;
-        text-align: left;
-    }
 
     .forceDisplay {
         display: inline !important;

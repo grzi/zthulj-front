@@ -15,6 +15,7 @@
       var splittedPath = this.$route.path.split('/')
       axios.get(process.env.ROOT_API + 'api/public/blog/' + splittedPath[splittedPath.length - 1]).then(response => {
         this.article = response.data
+        document.title = this.article.title + ' - zThulj'
         Prism.highlightAll(this.article.value.contentHtml)
         console.log(this.article.value.contentHtml)
       })
@@ -25,6 +26,9 @@
       access_token () {
         return this.$store.state.access_token
       }
+    },
+    mounted () {
+      document.title = this.article.title
     },
     data: function () {
       return {
