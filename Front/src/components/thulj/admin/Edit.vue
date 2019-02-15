@@ -93,10 +93,6 @@
                                                  v-model="article.value.contentMD"></MarkdownPalette>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="btn" v-on:click='uploadFile()'>Upload File</div>
-                        </div>
                         <div class="row">
                             <div class="btn" v-on:click='convertAndPreview()'>Preview</div>
                         </div>
@@ -106,30 +102,6 @@
                         <div id="modal1" class="modal">
                             <div class="modal-content presee blogpost" id="presee">
                                 <ArticleContent :article="article" :access_token="''"></ArticleContent>
-                            </div>
-                        </div>
-
-                        <div id="modal2" class="modal">
-                            <div class="modal-content">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <h3>Uploader un fichier</h3>
-                                        <form action="#" class="col s12">
-                                            <div class="file-field input-field">
-                                                <div class="btn">
-                                                    <span>File</span>
-                                                    <input type="file">
-                                                </div>
-                                                <div class="file-path-wrapper">
-                                                    <input class="file-path validate" type="text">
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="row">
-                                            <div class="btn" v-on:click='uploadRequest()'>Uploader</div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </form>
@@ -237,20 +209,6 @@
             this.messageColor = 'red lighten-2'
             this.messageinfo = e.response.data
             window.scrollTo(0, 0)
-          })
-      },
-      uploadFile () {
-        M.Modal.getInstance(document.getElementById('modal2')).open()
-      },
-      uploadRequest () {
-        const formData = new FormData();
-        //TODO : formData.append('file', );
-        formData.append('id', 7878);
-        axios.post('/api/uploadFile', formData)
-          .then(function (result) {
-            console.log(result)
-          }, function (error) {
-            console.log(error)
           })
       }
     },

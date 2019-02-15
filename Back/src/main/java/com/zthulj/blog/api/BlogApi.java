@@ -1,5 +1,6 @@
 package com.zthulj.blog.api;
 
+import com.google.common.base.Charsets;
 import com.zthulj.blog.dto.Article;
 import com.zthulj.blog.dto.Card;
 import com.zthulj.blog.dto.Image;
@@ -17,6 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
 
@@ -80,7 +84,11 @@ public class BlogApi {
     @CrossOrigin(origins = "*")
     @PostMapping(value = SecurityConfig.SECURED_API + "/blog/uploadFile")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file){
-        storageService.storeImage(file);
-        return new ResponseEntity<Boolean>(HttpStatus.ACCEPTED);
+        try {
+            var result = storageService.storeImage(file);
+            return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
 }

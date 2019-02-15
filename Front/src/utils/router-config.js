@@ -85,7 +85,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   try {
     M.Sidenav.init(document.getElementById('sidenav'))
   } catch (e) {
@@ -103,7 +102,6 @@ router.beforeEach((to, from, next) => {
                        'authorization': 'Basic ' + 'dGVzdENsaWVudDpjbGllbnRpZA=='
                      }
       }).then(response => {
-        console.log(response)
       })
     } else {
       next('/')

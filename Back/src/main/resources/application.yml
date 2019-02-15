@@ -12,10 +12,10 @@ jwt.signingkey: MayTheForceBeWithYou
 http.realmname: ThisIsTheRealName
 
 image.static.path: "/Users/zjeremy/Documents/test/"
-  spring:
-    servlet:
-      multipart:
-        max-file-size: 2048KB
-        max-request-size: 2048KB
-    http.multipart.enabled: false
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2048KB
+      max-request-size: 2048KB
+  multipart.enabled: false
 

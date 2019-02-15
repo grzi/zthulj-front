@@ -17,7 +17,6 @@
         this.article = response.data
         document.title = this.article.title + ' - zThulj'
         Prism.highlightAll(this.article.value.contentHtml)
-        console.log(this.article.value.contentHtml)
       })
         .catch(e => {
         })

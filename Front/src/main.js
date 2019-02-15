@@ -14,13 +14,13 @@ import {
   faUser, faComment, faPlusSquare, faBold,
   faItalic, faLink, faListOl, faListUl, faArrowsAlt,
   faImage, faEdit, faChevronLeft, faChevronRight, faBars, faHeading,
-  faExpandArrowsAlt, faEye
+  faExpandArrowsAlt, faEye, faFileUpload, faCompressArrowsAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faCoffee, faIdCard, faUtensils, faNewspaper, faCode, faHome, faGamepad, faHeart, faLightbulb, faBolt, faQuestion, faSearch, faClock, faUser, faComment)
 library.add(faPlusSquare, faBold, faItalic, faLink, faCode, faListOl, faListUl, faArrowsAlt, faCode, faImage, faEdit, faChevronLeft, faChevronRight, faBars, faHeading)
-library.add(faExpandArrowsAlt, faEye)
+library.add(faExpandArrowsAlt, faEye, faFileUpload, faCompressArrowsAlt)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 Vue.use(Vuex)
