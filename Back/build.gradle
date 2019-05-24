@@ -5,7 +5,7 @@ plugins {
 group 'fr.zthulj'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.10
+sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()
@@ -23,6 +23,13 @@ dependencies {
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
     compile group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.2'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+    compile group: 'javax.activation', name: 'activation', version: '1.1'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.5.RELEASE'
+
+
+
 }

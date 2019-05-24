@@ -32,7 +32,6 @@
   import Footer from '@/components/thulj/structure/Footer.vue'
   import Card from '@/components/thulj/article/Card.vue'
   import axios from 'axios'
-  import Timeline from 'vue-tweet-embed/timeline'
   import M from 'materialize-css'
 
   var loopCarousel = 0
@@ -63,8 +62,7 @@
       Card,
       SideNav,
       Footer,
-      TitleBar,
-      Timeline
+      TitleBar
     },
     created () {
       document.title = 'Zthulj blog - Accueil'
