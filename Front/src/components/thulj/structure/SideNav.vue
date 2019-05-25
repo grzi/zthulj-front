@@ -59,7 +59,7 @@
     },
     computed: {
       access_token () {
-        return this.$store.state.access_token
+        return this.$store.state.auth.access_token
       }
     },
     data: function () {

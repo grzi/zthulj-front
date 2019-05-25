@@ -16,12 +16,15 @@
     "@fortawesome/vue-fontawesome": "^0.1.2",
     "axios": "^0.18.0",
     "babel-plugin-prismjs": "^1.0.2",
+    "js-cookie": "^2.2.0",
     "materialize-css": "^1.0.0",
     "prismjs": "^1.15.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-tweet-embed": "^2.1.2",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persist": "^2.0.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

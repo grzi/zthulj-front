@@ -10,9 +10,9 @@
                     </p>
                     <a target="blank" href="https://www.twitter.com/zthulj"
                        class="waves-effect waves-light"><img
-                            src="../../../assets/facebook.png" class="icon"/></a> <a target="blank"
-                                                                                     href="https://www.linkedin.com/in/jeremythulliez/"
-                                                                                     class="waves-effect waves-light"><img
+                            src="../../../assets/twitter.png" class="icon"/></a> <a target="blank"
+                                                                                    href="https://www.linkedin.com/in/jeremythulliez/"
+                                                                                    class="waves-effect waves-light"><img
                         src="../../../assets/linkedin.png" class="icon"/></a> <a target="blank"
                                                                                  href="https://github.com/zthulj/"
                                                                                  class="waves-effect waves-light"><img

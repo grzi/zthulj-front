@@ -63,7 +63,7 @@
             this.messageBoxClass = 'forceDisplay'
             this.messageColor = 'green lighten-2'
             this.messageInfo = 'Login successful'
-            this.$store.state.access_token = response.data.access_token
+            this.$store.commit('auth/changeToken', response.data.access_token)
           })
           .catch(e => {
           })

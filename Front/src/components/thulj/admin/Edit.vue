@@ -132,6 +132,11 @@
       MarkdownPalette,
       ArticleContent
     },
+    computed: {
+      token () {
+        return this.$store.state.auth.access_token
+      }
+    },
     beforeMount () {
       this.loadArticleFromRoute()
     },
