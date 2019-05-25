@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,9 @@ import java.util.Collection;
 public class BlogApi {
 
     private Logger logger = LoggerFactory.getLogger(BlogApi.class);
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     BlogService blogService;
@@ -58,6 +62,12 @@ public class BlogApi {
     @GetMapping(value = SecurityConfig.PUBLIC_API + "/blog/list")
     public Collection<Card> list() {
         return blogService.listAllPublished();
+    }
+
+
+    @GetMapping(value = SecurityConfig.SECURED_API + "/blog/listAll")
+    public Collection<Card> listDraft(){
+        return blogService.listAll();
     }
 
 

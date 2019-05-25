@@ -6,6 +6,7 @@ import store from './store-pattern.js'
 import Home from '../components/thulj/Home'
 import Blog from '../components/thulj/article/Blog'
 import Edit from '../components/thulj/admin/Edit'
+import AdminHub from '../components/thulj/admin/AdminHub'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,20 @@ const router = new VueRouter({
       }
     },
     {
+      path: '/admin',
+      name: 'admin',
+      component: AdminHub,
+      meta: {
+        requiresAuth: true,
+        metaTags: [
+          {
+            name: 'robots',
+            content: 'noindex'
+          }
+        ]
+      }
+    },
+    {
       path: '/edit/:link',
       component: Edit,
       meta: {
@@ -94,15 +109,18 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   if (requiresAuth) {
     if (store.state.access_token !== '' && store.state.access_token !== null) {
-      axios.post(process.env.ROOT_API + 'oauth/check_token?token=' + store.state.access_token, this.article,
+      axios.post(process.env.ROOT_API + 'api/secured/user/check_token',
+                 '',
                  {
-                   headers:
-                     {
-                       'content-type': 'application/x-www-form-urlencoded',
-                       'authorization': 'Basic ' + 'dGVzdENsaWVudDpjbGllbnRpZA=='
-                     }
-      }).then(response => {
+                   headers: {
+                     'authorization': 'Bearer ' + store.state.auth.access_token
+                   }
       })
+        .then(response => {})
+        .catch(e => {
+          this.$store.commit('auth/changeToken', '')
+          next('/')
+        })
     } else {
       next('/')
     }

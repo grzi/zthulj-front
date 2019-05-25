@@ -133,7 +133,7 @@
       ArticleContent
     },
     computed: {
-      token () {
+      access_token () {
         return this.$store.state.auth.access_token
       }
     },
@@ -165,7 +165,7 @@
         if (typeof this.$route.params.link !== 'undefined') {
           axios.get(process.env.ROOT_API + 'api/secured/blog/full/' + this.$route.params.link, {
             headers: {
-              'authorization': 'Bearer ' + this.$store.state.access_token
+              'authorization': 'Bearer ' + this.access_token
             }
           }).then(response => {
             this.article = response.data
@@ -177,7 +177,7 @@
                    {'text': this.article.value.contentMD},
                    {
                      headers: {
-                       'authorization': 'Bearer ' + this.$store.state.access_token
+                       'authorization': 'Bearer ' + this.access_token
                      }
                    }
         ).then(response => {
@@ -196,7 +196,7 @@
         axios.post(process.env.ROOT_API + 'api/secured/blog/push', this.article,
                    {
                      headers: {
-                       'authorization': 'Bearer ' + this.$store.state.access_token
+                       'authorization': 'Bearer ' + this.access_token
                      }
         }).then(response => {
           this.article = response.data

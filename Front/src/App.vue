@@ -5,9 +5,31 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'app',
     components: {
+    },
+    computed: {
+      access_token () {
+        return this.$store.state.auth.access_token
+      }
+    },
+    mounted () {
+      if (this.access_token !== '') {
+        axios.post(process.env.ROOT_API + 'api/secured/user/check_token',
+                   '',
+                   {
+                     headers: {
+                       'authorization': 'Bearer ' + this.access_token
+                     }
+        })
+          .then(response => {})
+          .catch(e => {
+            console.log(e)
+            this.$store.commit('auth/changeToken', '')
+          })
+      }
     }
   }
 </script>

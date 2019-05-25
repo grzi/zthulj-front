@@ -21,7 +21,7 @@
                 <div class="col l6 s12">
                     <h5 class="white-text">Liens utiles</h5>
                     <ul>
-                        <li><Login></Login></li>
+                        <li><Login v-if="this.access_token == ''"></Login></li>
                     </ul>
                 </div>
                 <div class="col l3 s12">
@@ -43,6 +43,11 @@
   import Login from '@/components/thulj/admin/Login.vue'
   export default {
     name: 'Footer',
+    computed: {
+      access_token () {
+        return this.$store.state.auth.access_token
+      }
+    },
     components: {
       Login
     }

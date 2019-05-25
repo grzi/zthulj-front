@@ -32,9 +32,9 @@
         </router-link></li>
 
         <li :class='{active:activeSection=="editPost"}' v-if="this.access_token !== ''">
-            <router-link to="/edit" title="Nouvel article">
+            <router-link to="/admin" title="Nouvel article">
                 <font-awesome-icon icon="edit" size="2x" color="#EEEEEE"/>
-              <div class="labelsidenav">Editer</div>
+              <div class="labelsidenav">Admin</div>
             </router-link></li>
 
     </ul>

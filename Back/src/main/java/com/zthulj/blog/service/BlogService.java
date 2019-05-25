@@ -132,6 +132,4 @@ public class BlogService {
         c.setAuthor(e.getAuthor());
         return c;
     }
-
-
 }

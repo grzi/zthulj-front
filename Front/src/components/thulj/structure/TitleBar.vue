@@ -97,7 +97,7 @@
           url = 'api/secured/blog/searchAdmin/'
           headers = {
             headers: {
-              'authorization': 'Bearer ' + this.$store.state.access_token
+              'authorization': 'Bearer ' + this.access_token
             }
           }
         }
@@ -127,6 +127,11 @@
         this.lastSearch = this.keywords
         this.reset()
         M.Modal.getInstance(this.elemModal).open()
+      }
+    },
+    computed: {
+      access_token () {
+        return this.$store.state.auth.access_token
       }
     },
     data: function () {
