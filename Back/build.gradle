@@ -22,6 +22,7 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'
     compile group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
     compile 'javax.xml.bind:jaxb-api:2.3.0'
     compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.2'

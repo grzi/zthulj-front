@@ -18,4 +18,10 @@ spring:
       max-file-size: 2048KB
       max-request-size: 2048KB
   multipart.enabled: false
+twitter:
+  consumer.key:
+  consumer.secret:
+  access.token: -
+  token.secret:
 
+host: http://localhost:8081

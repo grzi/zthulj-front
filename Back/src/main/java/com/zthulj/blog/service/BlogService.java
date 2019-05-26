@@ -6,6 +6,7 @@ import com.zthulj.blog.exception.BlogException;
 import com.zthulj.blog.repository.BlogRepository;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
