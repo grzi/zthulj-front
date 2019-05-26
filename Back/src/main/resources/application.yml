@@ -18,10 +18,19 @@ spring:
       max-file-size: 2048KB
       max-request-size: 2048KB
   multipart.enabled: false
+  data:
+    mongodb:
+      authentication-database: admin
+      database: zthulj
+      host: localhost
+      port: 27017
+      username: admin
+      password: password
+
 twitter:
   consumer.key:
   consumer.secret:
-  access.token: -
+  access.token:
   token.secret:
 
 host: http://localhost:8081
