@@ -75,6 +75,11 @@
         fullscreen: false
       }
     },
+    computed: {
+      access_token () {
+        return this.$store.state.auth.access_token
+      }
+    },
     methods: {
       addMDToValue (mdStart, mdEnd) {
         var ta = document.getElementById('content')
@@ -119,7 +124,7 @@
         axios.post(process.env.ROOT_API + 'api/secured/blog/uploadFile', formData,
                    {
                      headers: {
-                       'authorization': 'Bearer ' + this.$store.state.access_token
+                       'authorization': 'Bearer ' + this.access_token
                      }
         })
           .then(response => {

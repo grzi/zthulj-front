@@ -107,7 +107,6 @@ public class BlogService {
     public Collection<Card> listAll() {
         List<Card> cards = new ArrayList<>();
         List<Article> articles = blogRepository.findAll();
-        articles.sort(Comparator.comparing(Article::getPublishDate).reversed());
         articles.forEach(e -> cards.add(cardFromArticle(e)));
         return cards;
     }
@@ -124,7 +123,7 @@ public class BlogService {
         Card c = new Card();
         c.setCategory(e.getCategory());
         c.setDescription(e.getDescription());
-        c.setPublishDate(fastDateFormat.format(e.getPublishDate()));
+        c.setPublishDate(e.getPublishDate() != null ? fastDateFormat.format(e.getPublishDate()) : "");
         c.setLink(e.getLink());
         c.setTitle(e.getTitle());
         c.setImageCard(e.getImageCard());
