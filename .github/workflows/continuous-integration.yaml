@@ -2,7 +2,7 @@
 name: zthulj-cicd
 
 # La condition de déclenchement de mon workflow, ici j'indique qu'il doit se lancer lors d'un push
-on: [push]
+on: push
 # Les jobs à lancer lorsque ce workflow est trigger
 jobs:
   mon_premier_job:
