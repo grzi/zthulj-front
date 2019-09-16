@@ -27,4 +27,4 @@ jobs:
         USERNAME: ${{ secrets.FTP_USERNAME }}
         PASSWORD: ${{ secrets.FTP_PASSWORD }}
         SOURCE: dist/*
-        TARGET: /opt/zthulj/dist
+        TARGET: /opt/zthulj/
