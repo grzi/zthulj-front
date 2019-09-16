@@ -1,7 +1,6 @@
 <template>
     <div>
         <SideNav v-bind:activeSection='"home"'/>
-        <TitleBar v-bind:sectionTitle='sectionTitle' :admin="false"/>
         <div class="content">
             <div class="container">
 
@@ -9,6 +8,7 @@
                     <div>
                         <div class="title-home"><b>home $ _</b></div>
                     </div>
+                    Bienvenue sur mon site fourre tout. :)
                     <div class="row light margin-top-20">
                         <div class="col hide-on-small-and-down m1 l1"></div>
                         <div class="col s12 m10 l10">
@@ -91,8 +91,6 @@
 </script>
 
 <style scoped>
-    .content{margin-top: 70px;
-        min-height: 600px;}
 
     .margin-top-20 {
         margin-top: 20px;

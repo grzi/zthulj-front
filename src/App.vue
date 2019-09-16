@@ -36,13 +36,11 @@
 
 <style>
     body {
-        background: #eceff1;
+        background: white;
         font-family: 'Source Code Pro', monospace;
         font-weight: 500;
     }
-    .content{margin-top: 70px;
-        min-height: 600px;}
-    .content .container{width:90% !important;padding-left:105px;font-weight: 400;}
+    .content { margin-top:10px; min-height:600px; }
     .articleContent h1{font-size:30px !important;font-weight:500;}
     .articleContent h2{font-size:27px !important;font-weight:500;}
     .articleContent h3{font-size:24px !important;font-weight:500;}

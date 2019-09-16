@@ -1,5 +1,5 @@
 <template>
-    <nav class="white" :class="customClasses">
+    <nav class="colornav" :class="customClasses">
         <div class="nav-wrapper ">
             <div class="row">
                 <div class="col s2">
@@ -223,6 +223,8 @@
 
     }
 
+    .colornav{background:#eceff1;}
+
     .header-search-input {
         margin-left: 65px !important;
         padding-left: 8px !important;
@@ -305,5 +307,9 @@
     .seeAllResults:hover {
         cursor: pointer;
         background: #F1F1F1;
+    }
+
+    ::placeholder{
+        color:grey;
     }
 </style>

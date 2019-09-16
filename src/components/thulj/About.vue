@@ -1,8 +1,6 @@
 <template>
     <div>
         <SideNav v-bind:activeSection='"cv"'></SideNav>
-        <TitleBar v-bind:sectionTitle='sectionTitle' :admin="false"></TitleBar>
-
         <div class="content">
             <div class="container">
                 <div class="row"><h4><b>{{cv.name}}</b></h4></div>
