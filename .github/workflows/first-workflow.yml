@@ -3,12 +3,22 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  buikd:
+    name: Build on node 10 and ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [10]
+        os: [ubuntu-latest]
 
-    runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/npm@1.0.0
-      args: install
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        version: ${{ matrix.node_version }}
 
+    - name: npm install, build and test
+      run: |
+        npm install
+        npm run build --if-present
