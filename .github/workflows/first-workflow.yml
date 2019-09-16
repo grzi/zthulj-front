@@ -5,18 +5,14 @@ on: [push]
 jobs:
   buikd:
     name: Build on node 10 and ubuntu-latest
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node_version: [10]
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node_version }}
+    - name: Use Node.js 10
       uses: actions/setup-node@v1
       with:
-        version: ${{ matrix.node_version }}
+        version: 10
 
     - name: npm install, build and test
       run: |
