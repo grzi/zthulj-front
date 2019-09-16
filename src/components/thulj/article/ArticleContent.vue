@@ -36,7 +36,7 @@
         margin-right:0.8em; color:#666666
     }
     .val{margin-left:0.4em; font-weight:lighter;font-size:12px;}
-    .articleContent{font-weight: lighter;text-align: left;margin-bottom:15px;}
+    .articleContent{font-weight: lighter;text-align: justify;margin-bottom:15px;}
     .container{padding-left:0px!important;font-weight:300;font-size:14px }
     .descr{font-size:12px;color:#777;margin-top:12px;font-weight:300;}
 
