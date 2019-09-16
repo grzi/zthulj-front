@@ -19,12 +19,12 @@ jobs:
         npm install
         npm run build --prod --if-present
         
-    - name: FTP-Deploy-Action
+    - name: Deploiement ssh
       uses: appleboy/scp-action@master
       env:
         HOST: 5.196.71.146
         PORT: 22
         USERNAME: ${{ secrets.FTP_USERNAME }}
         PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        SOURCE: dist
-        TARGET: .
+        SOURCE: dist/*
+        TARGET: /opt/zthulj/dist
