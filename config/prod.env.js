@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  ROOT_API: '"http://api.zthulj.fr/"'
+  ROOT_API: '"https://api.zthulj.fr/"'
 }
