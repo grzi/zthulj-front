@@ -5,7 +5,6 @@
             <span class="minititle"> <font-awesome-icon icon="clock"/> <span class="val">{{article.formattedDate}}</span></span>
             <span class="minititle"> <font-awesome-icon icon="user"/><span class="val">zThulj</span></span>
             <span class="minititle"> <font-awesome-icon icon="comment"/><span class="val">(0) Commentaires</span></span>
-            <router-link :to="'/edit/' + article.link" class="minititle" v-if="this.access_token !== ''"> <font-awesome-icon icon="edit"/></router-link>
         </div>
         <div class="light descr">{{article.description}}</div>
         <div class="separator"></div>
