@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 import router from './utils/router-config.js'
 import './../node_modules/materialize-css/dist/js/materialize.min.js'
 import './../node_modules/materialize-css/dist/css/materialize.min.css'
+import './../node_modules/prismjs/themes/prism.css'
+import './../node_modules/prismjs/components/prism-java.min'
+import './../node_modules/prismjs/components/prism-yaml.min'
 
 import store from './utils/store-pattern.js'
 
